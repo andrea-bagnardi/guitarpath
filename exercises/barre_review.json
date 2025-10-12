@@ -1,0 +1,31 @@
+{
+    "id": "barre_review",
+    "name": "Giorno 2 - Ripasso barré",
+    "description": "Accordi F, Bm, B — Eseguili lentamente, curando la pressione del dito indice. Suona prima solo le prime 3 corde, poi tutte 6.",
+    "video": "https://www.youtube.com/watch?v=FOvD9lJQeNs",
+    "events": [
+      {"type": "chord", "duration": 2, "name": "F (top3)", "notes": [
+        {"string": 3, "fret": 2}, {"string": 2, "fret": 1}, {"string": 1, "fret": 1}
+      ]},
+      {"type": "chord", "duration": 2, "name": "Bm (top3)", "notes": [
+        {"string": 3, "fret": 4}, {"string": 2, "fret": 3}, {"string": 1, "fret": 2}
+      ]},
+      {"type": "chord", "duration": 2, "name": "B (top3)", "notes": [
+        {"string": 3, "fret": 4}, {"string": 2, "fret": 4}, {"string": 1, "fret": 2}
+      ]},
+  
+      {"type": "chord", "duration": 2, "name": "F", "notes": [
+        {"string": 6, "fret": 1}, {"string": 5, "fret": 3}, {"string": 4, "fret": 3},
+        {"string": 3, "fret": 2}, {"string": 2, "fret": 1}, {"string": 1, "fret": 1}
+      ]},
+      {"type": "chord", "duration": 2, "name": "Bm", "notes": [
+        {"string": 5, "fret": 2}, {"string": 4, "fret": 4}, {"string": 3, "fret": 4},
+        {"string": 2, "fret": 3}, {"string": 1, "fret": 2}
+      ]},
+      {"type": "chord", "duration": 2, "name": "B", "notes": [
+        {"string": 5, "fret": 2}, {"string": 4, "fret": 4}, {"string": 3, "fret": 4},
+        {"string": 2, "fret": 4}, {"string": 1, "fret": 2}
+      ]}
+    ]
+  }
+  

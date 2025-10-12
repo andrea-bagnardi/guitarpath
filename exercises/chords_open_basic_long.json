@@ -1,0 +1,169 @@
+{
+  "id": "chords_open_practice_10min",
+  "name": "Giorno 1 - Accordi aperti principali (10 min)",
+  "description": "Esercizio di 10 minuti sugli accordi aperti principali. Suona ogni accordo per un secondo mantenendo il tempo costante. Concentrati su cambi fluidi, posizione rilassata della mano e pulizia del suono. Ottimo per riscaldare la mano sinistra e rinforzare la memoria muscolare.",
+  "bpm": 60,
+  "video": "https://example.com/videos/open_chords_practice_1.mp4",
+  "events": [
+    { "type": "chord", "name": "C", "duration": 1, "notes": [
+      { "string": 5, "fret": 3 }, { "string": 4, "fret": 2 },
+      { "string": 3, "fret": 0 }, { "string": 2, "fret": 1 },
+      { "string": 1, "fret": 0 }
+    ]},
+    { "type": "chord", "name": "G", "duration": 1, "notes": [
+      { "string": 6, "fret": 3 }, { "string": 5, "fret": 2 },
+      { "string": 4, "fret": 0 }, { "string": 3, "fret": 0 },
+      { "string": 2, "fret": 0 }, { "string": 1, "fret": 3 }
+    ]},
+    { "type": "chord", "name": "Am", "duration": 1, "notes": [
+      { "string": 5, "fret": 0 }, { "string": 4, "fret": 2 },
+      { "string": 3, "fret": 2 }, { "string": 2, "fret": 1 },
+      { "string": 1, "fret": 0 }
+    ]},
+    { "type": "chord", "name": "F", "duration": 1, "notes": [
+      { "string": 6, "fret": 1 }, { "string": 5, "fret": 3 },
+      { "string": 4, "fret": 3 }, { "string": 3, "fret": 2 },
+      { "string": 2, "fret": 1 }, { "string": 1, "fret": 1 }
+    ]},
+
+    { "type": "chord", "name": "D", "duration": 1, "notes": [
+      { "string": 4, "fret": 0 }, { "string": 3, "fret": 2 },
+      { "string": 2, "fret": 3 }, { "string": 1, "fret": 2 }
+    ]},
+    { "type": "chord", "name": "G", "duration": 1, "notes": [
+      { "string": 6, "fret": 3 }, { "string": 5, "fret": 2 },
+      { "string": 4, "fret": 0 }, { "string": 3, "fret": 0 },
+      { "string": 2, "fret": 0 }, { "string": 1, "fret": 3 }
+    ]},
+    { "type": "chord", "name": "A", "duration": 1, "notes": [
+      { "string": 5, "fret": 0 }, { "string": 4, "fret": 2 },
+      { "string": 3, "fret": 2 }, { "string": 2, "fret": 2 },
+      { "string": 1, "fret": 0 }
+    ]},
+    { "type": "chord", "name": "D", "duration": 1, "notes": [
+      { "string": 4, "fret": 0 }, { "string": 3, "fret": 2 },
+      { "string": 2, "fret": 3 }, { "string": 1, "fret": 2 }
+    ]},
+
+    { "type": "chord", "name": "Em", "duration": 1, "notes": [
+      { "string": 6, "fret": 0 }, { "string": 5, "fret": 2 },
+      { "string": 4, "fret": 2 }, { "string": 3, "fret": 0 },
+      { "string": 2, "fret": 0 }, { "string": 1, "fret": 0 }
+    ]},
+    { "type": "chord", "name": "C", "duration": 1, "notes": [
+      { "string": 5, "fret": 3 }, { "string": 4, "fret": 2 },
+      { "string": 3, "fret": 0 }, { "string": 2, "fret": 1 },
+      { "string": 1, "fret": 0 }
+    ]},
+    { "type": "chord", "name": "G", "duration": 1, "notes": [
+      { "string": 6, "fret": 3 }, { "string": 5, "fret": 2 },
+      { "string": 4, "fret": 0 }, { "string": 3, "fret": 0 },
+      { "string": 2, "fret": 0 }, { "string": 1, "fret": 3 }
+    ]},
+    { "type": "chord", "name": "D", "duration": 1, "notes": [
+      { "string": 4, "fret": 0 }, { "string": 3, "fret": 2 },
+      { "string": 2, "fret": 3 }, { "string": 1, "fret": 2 }
+    ]},
+
+    { "type": "chord", "name": "Am", "duration": 1, "notes": [
+      { "string": 5, "fret": 0 }, { "string": 4, "fret": 2 },
+      { "string": 3, "fret": 2 }, { "string": 2, "fret": 1 },
+      { "string": 1, "fret": 0 }
+    ]},
+    { "type": "chord", "name": "F", "duration": 1, "notes": [
+      { "string": 6, "fret": 1 }, { "string": 5, "fret": 3 },
+      { "string": 4, "fret": 3 }, { "string": 3, "fret": 2 },
+      { "string": 2, "fret": 1 }, { "string": 1, "fret": 1 }
+    ]},
+    { "type": "chord", "name": "C", "duration": 1, "notes": [
+      { "string": 5, "fret": 3 }, { "string": 4, "fret": 2 },
+      { "string": 3, "fret": 0 }, { "string": 2, "fret": 1 },
+      { "string": 1, "fret": 0 }
+    ]},
+    { "type": "chord", "name": "G", "duration": 1, "notes": [
+      { "string": 6, "fret": 3 }, { "string": 5, "fret": 2 },
+      { "string": 4, "fret": 0 }, { "string": 3, "fret": 0 },
+      { "string": 2, "fret": 0 }, { "string": 1, "fret": 3 }
+    ]},
+    { "type": "chord", "name": "C", "duration": 1, "notes": [
+      { "string": 5, "fret": 3 }, { "string": 4, "fret": 2 },
+      { "string": 3, "fret": 0 }, { "string": 2, "fret": 1 },
+      { "string": 1, "fret": 0 }
+    ]},
+    { "type": "chord", "name": "G", "duration": 1, "notes": [
+      { "string": 6, "fret": 3 }, { "string": 5, "fret": 2 },
+      { "string": 4, "fret": 0 }, { "string": 3, "fret": 0 },
+      { "string": 2, "fret": 0 }, { "string": 1, "fret": 3 }
+    ]},
+    { "type": "chord", "name": "Am", "duration": 1, "notes": [
+      { "string": 5, "fret": 0 }, { "string": 4, "fret": 2 },
+      { "string": 3, "fret": 2 }, { "string": 2, "fret": 1 },
+      { "string": 1, "fret": 0 }
+    ]},
+    { "type": "chord", "name": "F", "duration": 1, "notes": [
+      { "string": 6, "fret": 1 }, { "string": 5, "fret": 3 },
+      { "string": 4, "fret": 3 }, { "string": 3, "fret": 2 },
+      { "string": 2, "fret": 1 }, { "string": 1, "fret": 1 }
+    ]},
+
+    { "type": "chord", "name": "D", "duration": 1, "notes": [
+      { "string": 4, "fret": 0 }, { "string": 3, "fret": 2 },
+      { "string": 2, "fret": 3 }, { "string": 1, "fret": 2 }
+    ]},
+    { "type": "chord", "name": "G", "duration": 1, "notes": [
+      { "string": 6, "fret": 3 }, { "string": 5, "fret": 2 },
+      { "string": 4, "fret": 0 }, { "string": 3, "fret": 0 },
+      { "string": 2, "fret": 0 }, { "string": 1, "fret": 3 }
+    ]},
+    { "type": "chord", "name": "A", "duration": 1, "notes": [
+      { "string": 5, "fret": 0 }, { "string": 4, "fret": 2 },
+      { "string": 3, "fret": 2 }, { "string": 2, "fret": 2 },
+      { "string": 1, "fret": 0 }
+    ]},
+    { "type": "chord", "name": "D", "duration": 1, "notes": [
+      { "string": 4, "fret": 0 }, { "string": 3, "fret": 2 },
+      { "string": 2, "fret": 3 }, { "string": 1, "fret": 2 }
+    ]},
+
+    { "type": "chord", "name": "Em", "duration": 1, "notes": [
+      { "string": 6, "fret": 0 }, { "string": 5, "fret": 2 },
+      { "string": 4, "fret": 2 }, { "string": 3, "fret": 0 },
+      { "string": 2, "fret": 0 }, { "string": 1, "fret": 0 }
+    ]},
+    { "type": "chord", "name": "C", "duration": 1, "notes": [
+      { "string": 5, "fret": 3 }, { "string": 4, "fret": 2 },
+      { "string": 3, "fret": 0 }, { "string": 2, "fret": 1 },
+      { "string": 1, "fret": 0 }
+    ]},
+    { "type": "chord", "name": "G", "duration": 1, "notes": [
+      { "string": 6, "fret": 3 }, { "string": 5, "fret": 2 },
+      { "string": 4, "fret": 0 }, { "string": 3, "fret": 0 },
+      { "string": 2, "fret": 0 }, { "string": 1, "fret": 3 }
+    ]},
+    { "type": "chord", "name": "D", "duration": 1, "notes": [
+      { "string": 4, "fret": 0 }, { "string": 3, "fret": 2 },
+      { "string": 2, "fret": 3 }, { "string": 1, "fret": 2 }
+    ]},
+
+    { "type": "chord", "name": "Am", "duration": 1, "notes": [
+      { "string": 5, "fret": 0 }, { "string": 4, "fret": 2 },
+      { "string": 3, "fret": 2 }, { "string": 2, "fret": 1 },
+      { "string": 1, "fret": 0 }
+    ]},
+    { "type": "chord", "name": "F", "duration": 1, "notes": [
+      { "string": 6, "fret": 1 }, { "string": 5, "fret": 3 },
+      { "string": 4, "fret": 3 }, { "string": 3, "fret": 2 },
+      { "string": 2, "fret": 1 }, { "string": 1, "fret": 1 }
+    ]},
+    { "type": "chord", "name": "C", "duration": 1, "notes": [
+      { "string": 5, "fret": 3 }, { "string": 4, "fret": 2 },
+      { "string": 3, "fret": 0 }, { "string": 2, "fret": 1 },
+      { "string": 1, "fret": 0 }
+    ]},
+    { "type": "chord", "name": "G", "duration": 1, "notes": [
+      { "string": 6, "fret": 3 }, { "string": 5, "fret": 2 },
+      { "string": 4, "fret": 0 }, { "string": 3, "fret": 0 },
+      { "string": 2, "fret": 0 }, { "string": 1, "fret": 3 }
+    ]}
+  ]
+}

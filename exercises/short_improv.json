@@ -1,0 +1,21 @@
+{
+    "id": "short_improv",
+    "name": "Giorno 3 - Improv breve - A minor",
+    "description": "Suona liberamente su backing track in A minor (A minor blues). Concentrati su ritmo, fraseggio e alternate picking.",
+    "video": "https://www.youtube.com/watch?v=Jz2Jb1KX7zQ",
+    "events": [
+      {"type":"note","duration":1,"string":6,"fret":5},
+      {"type":"note","duration":1,"string":6,"fret":8},
+      {"type":"note","duration":1,"string":5,"fret":5},
+      {"type":"note","duration":1,"string":5,"fret":7},
+      {"type":"note","duration":1,"string":4,"fret":5},
+      {"type":"note","duration":1,"string":4,"fret":7},
+      {"type":"note","duration":1,"string":3,"fret":5},
+      {"type":"note","duration":1,"string":3,"fret":7},
+      {"type":"note","duration":1,"string":2,"fret":5},
+      {"type":"note","duration":1,"string":2,"fret":8},
+      {"type":"note","duration":1,"string":1,"fret":5},
+      {"type":"note","duration":1,"string":1,"fret":8}
+    ]
+  }
+  

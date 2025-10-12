@@ -1,0 +1,62 @@
+{
+    "id": "chromatic_alt_warmup",
+    "name": "Giorno 2 - Warm-up alternato (1-2-3-4 / 4-3-2-1)",
+    "description": "Esercizio cromatico 1-2-3-4 e ritorno 4-3-2-1 su ogni corda. Mantieni il tempo costante e usa pennata alternata.",
+    "video": "https://www.youtube.com/watch?v=8pPCo-0XK7A",
+    "events": [
+      {"type": "note", "string": 6, "fret": 1, "duration": 1},
+      {"type": "note", "string": 6, "fret": 2, "duration": 1},
+      {"type": "note", "string": 6, "fret": 3, "duration": 1},
+      {"type": "note", "string": 6, "fret": 4, "duration": 1},
+      {"type": "note", "string": 6, "fret": 4, "duration": 1},
+      {"type": "note", "string": 6, "fret": 3, "duration": 1},
+      {"type": "note", "string": 6, "fret": 2, "duration": 1},
+      {"type": "note", "string": 6, "fret": 1, "duration": 1},
+  
+      {"type": "note", "string": 5, "fret": 1, "duration": 1},
+      {"type": "note", "string": 5, "fret": 2, "duration": 1},
+      {"type": "note", "string": 5, "fret": 3, "duration": 1},
+      {"type": "note", "string": 5, "fret": 4, "duration": 1},
+      {"type": "note", "string": 5, "fret": 4, "duration": 1},
+      {"type": "note", "string": 5, "fret": 3, "duration": 1},
+      {"type": "note", "string": 5, "fret": 2, "duration": 1},
+      {"type": "note", "string": 5, "fret": 1, "duration": 1},
+  
+      {"type": "note", "string": 4, "fret": 1, "duration": 1},
+      {"type": "note", "string": 4, "fret": 2, "duration": 1},
+      {"type": "note", "string": 4, "fret": 3, "duration": 1},
+      {"type": "note", "string": 4, "fret": 4, "duration": 1},
+      {"type": "note", "string": 4, "fret": 4, "duration": 1},
+      {"type": "note", "string": 4, "fret": 3, "duration": 1},
+      {"type": "note", "string": 4, "fret": 2, "duration": 1},
+      {"type": "note", "string": 4, "fret": 1, "duration": 1},
+  
+      {"type": "note", "string": 3, "fret": 1, "duration": 1},
+      {"type": "note", "string": 3, "fret": 2, "duration": 1},
+      {"type": "note", "string": 3, "fret": 3, "duration": 1},
+      {"type": "note", "string": 3, "fret": 4, "duration": 1},
+      {"type": "note", "string": 3, "fret": 4, "duration": 1},
+      {"type": "note", "string": 3, "fret": 3, "duration": 1},
+      {"type": "note", "string": 3, "fret": 2, "duration": 1},
+      {"type": "note", "string": 3, "fret": 1, "duration": 1},
+  
+      {"type": "note", "string": 2, "fret": 1, "duration": 1},
+      {"type": "note", "string": 2, "fret": 2, "duration": 1},
+      {"type": "note", "string": 2, "fret": 3, "duration": 1},
+      {"type": "note", "string": 2, "fret": 4, "duration": 1},
+      {"type": "note", "string": 2, "fret": 4, "duration": 1},
+      {"type": "note", "string": 2, "fret": 3, "duration": 1},
+      {"type": "note", "string": 2, "fret": 2, "duration": 1},
+      {"type": "note", "string": 2, "fret": 1, "duration": 1},
+  
+      {"type": "note", "string": 1, "fret": 1, "duration": 1},
+      {"type": "note", "string": 1, "fret": 2, "duration": 1},
+      {"type": "note", "string": 1, "fret": 3, "duration": 1},
+      {"type": "note", "string": 1, "fret": 4, "duration": 1},
+      {"type": "note", "string": 1, "fret": 4, "duration": 1},
+      {"type": "note", "string": 1, "fret": 3, "duration": 1},
+      {"type": "note", "string": 1, "fret": 2, "duration": 1},
+      {"type": "note", "string": 1, "fret": 1, "duration": 1}
+    ]
+  }
+  

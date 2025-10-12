@@ -1,0 +1,90 @@
+{
+    "id": "ear_training_basics",
+    "name": "Giorno 5 - Ear Training – Riconoscere accordi e note",
+    "description": "Allenamento dell’orecchio musicale: riconosci accordi maggiori e minori, canta una nota e trovala sulla chitarra. L’obiettivo è sviluppare consapevolezza sonora e collegare ciò che senti a ciò che suoni.",
+    "details": "Allenare l’orecchio significa imparare a riconoscere i suoni — note, intervalli, accordi e tonalità — senza dover guardare lo strumento. È una delle abilità più potenti per qualsiasi musicista, perché trasforma l’ascolto passivo in consapevolezza musicale attiva.\n\n1️⃣ Riconoscere accordi maggiori e minori: Gli accordi maggiori suonano più luminosi e aperti, quelli minori più scuri e malinconici. La differenza è nella terza: maggiore (2 toni sopra la tonica) o minore (1 tono e mezzo). Esempi: C maggiore (C–E–G) suona brillante, C minore (C–Eb–G) suona cupo.\n\n2️⃣ Cantare e trovare le note sulla chitarra: Canta una nota, poi trovala sul manico. Puoi ascoltare una melodia e riprodurla, oppure suonare una scala dopo averla cantata. Collega l’orecchio alla memoria tattile e visiva.\n\n3️⃣ Consigli pratici: Inizia con pochi intervalli (tonica–terza, tonica–quinta), usa app o siti di ear training (TonedEar, Musictheory.net, Teoria.com), ripeti sessioni da 5–10 minuti e collega sempre ciò che senti alle forme sul manico.\n\n🎯 Obiettivo: riconoscere relazioni sonore e differenze timbriche, non avere l’orecchio assoluto.",
+    "video": "https://www.youtube.com/watch?v=lLKpUOV7k2E",
+    "events": [
+      {
+        "type": "chord",
+        "name": "C",
+        "duration": 2,
+        "notes": [
+          {"string": 5, "fret": 3},
+          {"string": 4, "fret": 2},
+          {"string": 3, "fret": 0},
+          {"string": 2, "fret": 1},
+          {"string": 1, "fret": 0}
+        ],
+        "techniques": ["major"]
+      },
+      {
+        "type": "chord",
+        "name": "Cm",
+        "duration": 2,
+        "notes": [
+          {"string": 5, "fret": 3},
+          {"string": 4, "fret": 1},
+          {"string": 3, "fret": 0},
+          {"string": 2, "fret": 1},
+          {"string": 1, "fret": 3}
+        ],
+        "techniques": ["minor"]
+      },
+      {
+        "type": "chord",
+        "name": "A",
+        "duration": 2,
+        "notes": [
+          {"string": 5, "fret": 0},
+          {"string": 4, "fret": 2},
+          {"string": 3, "fret": 2},
+          {"string": 2, "fret": 2},
+          {"string": 1, "fret": 0}
+        ],
+        "techniques": ["major"]
+      },
+      {
+        "type": "chord",
+        "name": "Am",
+        "duration": 2,
+        "notes": [
+          {"string": 5, "fret": 0},
+          {"string": 4, "fret": 2},
+          {"string": 3, "fret": 2},
+          {"string": 2, "fret": 1},
+          {"string": 1, "fret": 0}
+        ],
+        "techniques": ["minor"]
+      },
+      {
+        "type": "note",
+        "string": 5,
+        "fret": 0,
+        "duration": 1,
+        "techniques": ["sing_and_match"]
+      },
+      {
+        "type": "note",
+        "string": 4,
+        "fret": 2,
+        "duration": 1,
+        "techniques": ["sing_and_match"]
+      },
+      {
+        "type": "note",
+        "string": 3,
+        "fret": 2,
+        "duration": 1,
+        "techniques": ["sing_and_match"]
+      },
+      {
+        "type": "note",
+        "string": 2,
+        "fret": 1,
+        "duration": 1,
+        "techniques": ["sing_and_match"]
+      }
+    ]
+  }
+  

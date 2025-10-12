@@ -1,0 +1,39 @@
+{
+    "id": "mini_barre_progression",
+    "name": "Giorno 2 - Mini progressione barré",
+    "description": "Progressione F–G–Am–C con strumming lento e arpeggio per chiarezza. Focus su rilassamento tra un cambio e l’altro.",
+    "video": "https://www.youtube.com/watch?v=FOvD9lJQeNs",
+    "events": [
+      {"type":"chord","duration":2,"name":"F","notes":[{"string":6,"fret":1},{"string":5,"fret":3},{"string":4,"fret":3},{"string":3,"fret":2},{"string":2,"fret":1},{"string":1,"fret":1}]},
+      {"type":"chord","duration":2,"name":"G","notes":[{"string":6,"fret":3},{"string":5,"fret":5},{"string":4,"fret":5},{"string":3,"fret":4},{"string":2,"fret":3},{"string":1,"fret":3}]},
+      {"type":"chord","duration":2,"name":"Am","notes":[{"string":5,"fret":0},{"string":4,"fret":2},{"string":3,"fret":2},{"string":2,"fret":1},{"string":1,"fret":0}]},
+      {"type":"chord","duration":2,"name":"C","notes":[{"string":5,"fret":3},{"string":4,"fret":2},{"string":3,"fret":0},{"string":2,"fret":1},{"string":1,"fret":0}]},
+  
+      {"type":"chord","duration":0.5,"name":"F","notes":[{"string":6,"fret":1}]},
+      {"type":"chord","duration":0.5,"name":"F","notes":[{"string":5,"fret":3}]},
+      {"type":"chord","duration":0.5,"name":"F","notes":[{"string":4,"fret":3}]},
+      {"type":"chord","duration":0.5,"name":"F","notes":[{"string":3,"fret":2}]},
+      {"type":"chord","duration":0.5,"name":"F","notes":[{"string":2,"fret":1}]},
+      {"type":"chord","duration":0.5,"name":"F","notes":[{"string":1,"fret":1}]},
+  
+      {"type":"chord","duration":0.5,"name":"G","notes":[{"string":6,"fret":3}]},
+      {"type":"chord","duration":0.5,"name":"G","notes":[{"string":5,"fret":5}]},
+      {"type":"chord","duration":0.5,"name":"G","notes":[{"string":4,"fret":5}]},
+      {"type":"chord","duration":0.5,"name":"G","notes":[{"string":3,"fret":4}]},
+      {"type":"chord","duration":0.5,"name":"G","notes":[{"string":2,"fret":3}]},
+      {"type":"chord","duration":0.5,"name":"G","notes":[{"string":1,"fret":3}]},
+  
+      {"type":"chord","duration":0.5,"name":"Am","notes":[{"string":5,"fret":0}]},
+      {"type":"chord","duration":0.5,"name":"Am","notes":[{"string":4,"fret":2}]},
+      {"type":"chord","duration":0.5,"name":"Am","notes":[{"string":3,"fret":2}]},
+      {"type":"chord","duration":0.5,"name":"Am","notes":[{"string":2,"fret":1}]},
+      {"type":"chord","duration":0.5,"name":"Am","notes":[{"string":1,"fret":0}]},
+  
+      {"type":"chord","duration":0.5,"name":"C","notes":[{"string":5,"fret":3}]},
+      {"type":"chord","duration":0.5,"name":"C","notes":[{"string":4,"fret":2}]},
+      {"type":"chord","duration":0.5,"name":"C","notes":[{"string":3,"fret":0}]},
+      {"type":"chord","duration":0.5,"name":"C","notes":[{"string":2,"fret":1}]},
+      {"type":"chord","duration":0.5,"name":"C","notes":[{"string":1,"fret":0}]}
+    ]
+  }
+  

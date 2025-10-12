@@ -1,0 +1,1548 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+  <meta charset="utf-8" />
+  <title>GuitarPath — Practice Smarter</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    :root {
+      --bg: #181818;
+      --panel: rgba(40, 40, 40, 0.85);
+      --string: #666;
+      --note-grad: linear-gradient(135deg, #ff7e5f, #feb47b);
+      --note-active-grad: linear-gradient(135deg, #7f00ff, #e100ff);
+      --accent: #ff4d4d;
+      --accent-2: #4ec5ff;
+      --text: #fff;
+      --panel-border: #2b2b2b;
+      --header-h: 76px;
+    }
+
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, Arial, Helvetica, sans-serif;
+      display: flex;
+      flex-direction: column;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body.light {
+      --bg: #f5f5f5;
+      --panel: rgba(255, 255, 255, 0.95);
+      --string: #bbb;
+      --note-grad: linear-gradient(135deg, #4facfe, #00f2fe);
+      --note-active-grad: linear-gradient(135deg, #43e97b, #38f9d7);
+      --accent: #0077ff;
+      --text: #111;
+      --panel-border: #ddd;
+    }
+
+    /* ========== Header ========== */
+    header.app-header {
+      position: fixed;
+      top: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(1100px, calc(100% - 36px));
+      height: var(--header-h);
+      z-index: 80;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 16px;
+      border-radius: 14px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(8px) saturate(120%);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
+      transition: transform .18s cubic-bezier(.2, .9, .3, 1), box-shadow .18s;
+    }
+
+    header.app-header:active {
+      transform: translateX(-50%) scale(.998);
+    }
+
+    .logo-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      user-select: none;
+    }
+
+    /* Mostra logo bianco di default (dark theme) */
+    .logo-dark {
+      display: block;
+    }
+
+    .logo-light {
+      display: none;
+    }
+
+    /* Quando il body ha la classe .light, inverti */
+    body.light .logo-dark {
+      display: none;
+    }
+
+    body.light .logo-light {
+      display: block;
+    }
+
+    /* Header background cambia in base al tema */
+    body.light header {
+      background-color: #f9f9f9;
+      border-color: rgba(0, 0, 0, 0.1);
+    }
+
+    body.light header button {
+      color: #222;
+      border-color: rgba(0, 0, 0, 0.2);
+    }
+
+    /* flat SVG container */
+    .logo-box {
+      width: 52px;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 10px;
+      background: linear-gradient(180deg, #0ea5ff11, #7dd3fc10);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      box-shadow: 0 6px 18px rgba(30, 30, 30, 0.45), inset 0 -6px 18px rgba(255, 255, 255, 0.015);
+      transition: transform .16s ease, box-shadow .16s ease;
+    }
+
+    .logo-box:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 10px 30px rgba(30, 30, 30, 0.55);
+    }
+
+    .app-name {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+    }
+
+    .app-name .brand {
+      background: linear-gradient(90deg, #4ec5ff, #7b61ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      font-size: 22px;
+    }
+
+    .app-name .sub {
+      font-size: 11px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.55);
+      margin-left: 4px;
+    }
+
+    /* right area placeholder */
+    .header-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .header-btn {
+      padding: 8px 12px;
+      border-radius: 10px;
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      color: var(--text);
+      font-size: 13px;
+      cursor: pointer;
+      transition: background .12s, transform .12s;
+    }
+
+    .header-btn:hover {
+      transform: translateY(-2px);
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    /* ensure content doesn't hide under header */
+    .app {
+      width: 100%;
+      max-width: 1100px;
+      margin: calc(18px + var(--header-h)) auto 18px;
+      padding-bottom: 140px;
+      box-sizing: border-box;
+      position: relative;
+    }
+
+    /* keep the rest of your original styles (trimmed / reorganized) */
+    body,
+    .app,
+    .player-bar {
+      transition: background .3s, color .3s;
+    }
+
+    h1 {
+      margin: 6px 0 12px;
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .exercise-bar {
+      width: 100%;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--panel);
+      border: 1px solid var(--panel-border);
+      border-radius: 10px;
+      padding: 10px 12px;
+      box-sizing: border-box;
+      gap: 12px;
+    }
+
+    .exercise-bar label {
+      flex: 1;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text);
+      width: 100%;
+    }
+
+    .exercise-bar select {
+      flex: 1;
+      padding: 8px 10px;
+      border-radius: 8px;
+      border: 1px solid var(--panel-border);
+      background: transparent;
+      color: var(--text);
+      width: 100%;
+      font-size: 14px;
+    }
+
+    .exercise-left {
+      flex: 1;
+      display: flex;
+    }
+
+    .exercise-bar select option {
+      background-color: var(--panel);
+      color: var(--text);
+    }
+
+    .exercise-bar select option:checked,
+    .exercise-bar select option:hover {
+      background-color: var(--panel-border);
+      color: var(--text);
+    }
+
+    .stage {
+      position: relative;
+      width: 100%;
+      height: 260px;
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--panel);
+      border: 1px solid var(--panel-border);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    }
+
+    #tablatureMessage {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: var(--panel);
+      color: #aaa;
+      font-size: 18px;
+      transition: opacity 0.5s ease;
+      opacity: 1;
+      z-index: 999;
+    }
+
+    #tablatureMessage.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .tablature {
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 2600px;
+      transition: transform 0.04s linear;
+      will-change: transform;
+    }
+
+    .string {
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--string);
+      transition: background .12s, box-shadow .12s;
+    }
+
+    .string.s1 {
+      top: 40px
+    }
+
+    .string.s2 {
+      top: 70px
+    }
+
+    .string.s3 {
+      top: 100px
+    }
+
+    .string.s4 {
+      top: 130px
+    }
+
+    .string.s5 {
+      top: 160px
+    }
+
+    .string.s6 {
+      top: 190px
+    }
+
+    .string.active {
+      background: var(--accent);
+      box-shadow: 0 0 10px var(--accent);
+    }
+
+    /* Nota singola */
+    .note {
+      position: absolute;
+      width: 27px;
+      height: 27px;
+      border-radius: 50%;
+      background: var(--note-grad);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: #111;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
+      transition: transform .12s, box-shadow .12s, background .12s;
+      user-select: none;
+    }
+
+    /* Nota attiva */
+    .note.active {
+      background: var(--note-active-grad);
+      transform: scale(1.28) translate(-45%, -45%);
+      color: #fff;
+      box-shadow: 0 0 18px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Contenitore accordo */
+    .chord {
+      position: absolute;
+      display: flex;
+      gap: 4px;
+      padding: 4px 6px;
+      border: 2px solid #cc9900;
+      border-radius: 8px;
+      background: rgba(255, 230, 128, 0.2);
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Nota dell'accordo */
+    .note.chord-note {
+      min-width: 22px;
+      /* più compatto di una nota singola */
+      padding: 2px 4px;
+      /* più respiro orizzontale */
+      text-align: center;
+    }
+
+    .chord-note {
+      background: linear-gradient(135deg, #ffd966, #ffb347);
+      border: 2px solid #cc9900;
+      border-radius: 50%;
+      font-size: 13px;
+      min-width: 22px;
+      min-height: 22px;
+      line-height: 20px;
+      text-align: center;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      color: #222;
+      transition: transform 0.12s ease, box-shadow 0.12s ease;
+    }
+
+    .chord-note.active {
+      background: #ffcc33;
+      transform: scale(1.2);
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Pausa */
+    .rest {
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      border-radius: 4px;
+      background: #444;
+      opacity: 0.6;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .rest::after {
+      content: "𝄽";
+      /* simbolo pausa musicale */
+      font-size: 14px;
+      color: #fff;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    /* stile per le tecniche applicate alle note */
+    .note .technique {
+      position: absolute;
+      top: -14px;
+      /* sopra la nota */
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 10px;
+      font-style: italic;
+      color: #c33;
+      white-space: nowrap;
+      pointer-events: none;
+    }
+
+    .note .technique.below {
+      top: auto;
+      bottom: -14px;
+      /* sotto la nota */
+      color: #36c;
+    }
+
+    .playhead {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 3px;
+      background: var(--accent);
+      z-index: 40;
+      left: 0;
+      box-shadow: 0 0 8px var(--accent);
+    }
+
+    .measure-line {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: rgba(255, 255, 255, 0.06)
+    }
+
+    .measure-number {
+      position: absolute;
+      top: 6px;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.55);
+      transform: translateX(-50%)
+    }
+
+    /* Battute tablatura - tema light */
+    body.light .measure-line {
+      background-color: rgba(0, 0, 0, 0.15);
+    }
+
+    body.light .measure-number {
+      color: rgba(0, 0, 0, 0.25);
+    }
+
+    .statusbar {
+      margin-top: 12px;
+      color: rgba(255, 255, 255, 0.75);
+      font-size: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .countdown {
+      font-weight: 700;
+      color: var(--accent)
+    }
+
+    /* Player bar: modern & floating */
+    .player-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 80px;
+      backdrop-filter: blur(12px);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 16px;
+      z-index: 60;
+    }
+
+
+    .player-inner {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 12px;
+      gap: 12px;
+    }
+
+    /* Sezioni */
+    .left-controls,
+    .right-controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .center-controls {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* Bottoni generici */
+    .icon-toggle {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 8px;
+      border-radius: 8px;
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--text);
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    .icon-toggle:hover {
+      background: rgba(255, 255, 255, 0.15);
+      transform: translateY(-1px);
+    }
+
+    /* Pulsante Play */
+    .play-button {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #06b6d4, #3b82f6);
+      box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+      border: none;
+      color: white;
+      font-size: 1.4rem;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .play-button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 25px rgba(59, 130, 246, 0.6);
+    }
+
+    /* Input */
+    .player-bar input[type="number"],
+    .player-bar input[type="range"] {
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text);
+      padding: 4px 6px;
+      font-size: 0.85rem;
+    }
+
+    .player-bar input[type="range"] {
+      accent-color: #3b82f6;
+    }
+
+    .icon-toggle {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 8px;
+      border-radius: 8px;
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--text);
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    .icon-toggle svg {
+      width: 18px;
+      height: 18px;
+      flex: 0 0 18px;
+    }
+
+    .control-row label {
+      font-size: 13px;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .control-row input[type=number],
+    .control-row select {
+      padding: 6px;
+      border-radius: 6px;
+      border: 1px solid var(--panel-border);
+      background: transparent;
+      color: var(--text);
+      min-width: 88px;
+    }
+
+    .chip {
+      padding: 6px 10px;
+      border-radius: 10px;
+      background: rgba(0, 0, 0, 0.12);
+      font-size: 13px;
+      color: var(--text);
+    }
+
+    @media (max-width:880px) {
+      header.app-header {
+        left: 12px;
+        transform: none;
+        width: calc(100% - 24px);
+      }
+
+      .player-inner {
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        padding: 0 8px;
+        gap: 8px;
+      }
+
+      .left-controls,
+      .right-controls {
+        flex: 1;
+        justify-content: center;
+        /* centrati orizzontalmente sullo spazio disponibile */
+        gap: 8px;
+      }
+
+      .center-controls {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .player-bar input[type=range] {
+        width: 100px;
+      }
+
+      .player-bar input[type=number] {
+        width: 60px;
+      }
+
+      .exercise-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px
+      }
+
+      .exercise-bar select {
+        min-width: 140px
+      }
+
+      .app {
+        margin-top: calc(18px + var(--header-h));
+      }
+    }
+
+    .tablature .note {
+      position: absolute;
+      display: inline-block;
+      width: auto;
+      /* non forzare larghezza */
+      height: auto;
+      /* non forzare altezza */
+      padding: 0;
+      /* nessun padding grafico */
+      margin: 0;
+      min-width: 0;
+      min-height: 0;
+      border: none !important;
+      border-radius: 0 !important;
+      background: transparent !important;
+      /* rimuove gradient / sfondo */
+      box-shadow: none !important;
+      color: var(--text) !important;
+      /* usa il testo del tema */
+      font-weight: 700;
+      font-size: 15px;
+      /* regola se vuoi più/grande testo */
+      line-height: 1;
+      transform: translate(-50%, -50%);
+      /* mantiene il posizionamento centrato che usi già */
+      transition: color .12s, transform .12s;
+      user-select: none;
+      /* evita selezione accidentale durante l'animazione */
+      pointer-events: none;
+      /* evita che l'elemento si comporti come bottone */
+    }
+
+    /* Attivo = solo cambio colore / leggera scala, niente sfondo */
+    .tablature .note.active {
+      color: var(--accent-2) !important;
+      /* evidenzia con colore accent-2 — cambia se preferisci */
+      transform: scale(1.12) translate(-50%, -50%);
+      text-shadow: none;
+    }
+
+    /* Chord notes (override separato perché prima erano definite con gradient e bordo) */
+    .tablature .note.chord-note,
+    .tablature .chord-note {
+      /* rendiamo le note d'accordo uguali: solo testo */
+      background: transparent !important;
+      border: none !important;
+      border-radius: 0 !important;
+      box-shadow: none !important;
+      padding: 0 !important;
+      min-width: 0 !important;
+      min-height: 0 !important;
+      color: var(--text) !important;
+      font-weight: 700;
+      pointer-events: none;
+    }
+
+    /* Se vuoi un accento diverso per le chord-note attive */
+    .tablature .chord-note.active,
+    .tablature .note.chord-note.active {
+      color: var(--accent) !important;
+      transform: scale(1.05) translate(-50%, -50%);
+    }
+
+    /* Elimina anche il contenitore .chord (se vuoi che non appaia la box dell'accordo) */
+    .tablature .chord {
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+      padding: 0 !important;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Header -->
+  <header class="fixed top-0 left-0 w-full z-50 border-b border-white/10 shadow-lg">
+    <div class="max-w-7xl mx-auto flex items-center justify-between px-6 py-3">
+
+      <!-- Logo + Nome -->
+      <div class="flex items-center gap-3">
+        <!-- Logo bianco (per tema dark) -->
+        <img src="images/guitarpath-logo-white.png" alt="GuitarPath Logo White" class="h-10 w-auto logo-dark">
+
+        <!-- Logo colorato (per tema light) -->
+        <img src="images/guitarpath-logo.png" alt="GuitarPath Logo Color" class="h-10 w-auto logo-light">
+      </div>
+
+      <!-- Toggle tema -->
+      <button id="themeToggleBtn" class="icon-toggle" title="Tema chiaro / scuro">
+        <svg id="themeIcon" viewBox="0 0 24 24" fill="none" class="w-6 h-6">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="1.3"
+            stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        <span class="hidden sm:inline">Tema</span>
+      </button>
+
+    </div>
+  </header>
+
+  <!-- Main app container: ho rimosso il vecchio H1 e mantenuto la UI esistente -->
+  <div class="app" role="main">
+    <!-- Nota: il vecchio <h1> è stato rimosso perché ora c'è l'header -->
+    <div class="exercise-bar" id="exerciseBar">
+      <div class="exercise-left">
+        <label>Esercizio
+          <select id="exercise">
+            <option value="" selected disabled>Seleziona un esercizio...</option>
+          </select>
+        </label>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px">
+        <div class="chip" id="playerInfo">Pronto</div>
+      </div>
+    </div>
+
+    <div class="stage" id="stage">
+      <div class="playhead" id="playhead"></div>
+
+      <div id="tablatureMessage"
+        style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:#aaa;font-size:18px;">
+        Seleziona un esercizio per iniziare
+      </div>
+
+      <div class="tablature" id="tablature">
+        <div class="string s1"></div>
+        <div class="string s2"></div>
+        <div class="string s3"></div>
+        <div class="string s4"></div>
+        <div class="string s5"></div>
+        <div class="string s6"></div>
+      </div>
+    </div>
+
+    <div class="statusbar">
+      <div id="status">Fermo</div>
+      <div class="countdown" id="countdown"></div>
+    </div>
+  </div>
+
+  <div class="player-bar" aria-hidden="false">
+    <div class="player-inner">
+      <div class="left-controls control-row">
+        <label>BPM
+          <input id="bpmRange" type="range" min="30" max="240" value="80" />
+        </label>
+        <input id="bpmNumber" type="number" min="30" max="240" value="80" style="width:72px" />
+      </div>
+
+      <div class="center-controls">
+        <button id="playToggle" class="play-button" title="Play / Stop">▶</button>
+      </div>
+
+      <div class="right-controls control-row">
+        <button id="clickToggle" class="icon-toggle" title="Metronomo (on/off)">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M12 3v2M12 19v2M4.2 6.2l1.4 1.4M18.4 16.4l1.4 1.4M3 12h2M19 12h2" stroke="currentColor"
+              stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          <span>Metronomo</span>
+        </button>
+
+        <button id="noteToggle" class="icon-toggle" title="Note audio (on/off)">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M9 17V5l11-2v12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+              stroke-linejoin="round" />
+            <circle cx="6" cy="18" r="3" stroke="currentColor" stroke-width="1.5" />
+          </svg>
+          <span>Note</span>
+        </button>
+
+        <button id="scrollToggle" class="icon-toggle" title="Scroll (on/off)">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+          </svg>
+          <span>Scroll</span>
+        </button>
+
+        <button id="countinToggle" class="icon-toggle" title="Count-in (on/off)">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M12 7v5l3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+              stroke-linejoin="round" />
+            <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5" />
+          </svg>
+          <span>Count-in</span>
+        </button>
+
+        <div style="display:flex;align-items:center;gap:6px;">
+          <input id="countInBars" type="number" min="1" max="8" value="1"
+            style="width:56px;padding:6px;border-radius:6px;border:1px solid var(--panel-border);background:transparent;color:var(--text)" />
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* === Dynamic Exercise Loader === */
+    const exercises = {};
+    const exerciseDir = "./exercises";
+
+    async function loadExercises() {
+      try {
+        const indexRes = await fetch(`${exerciseDir}/index.json`);
+        const files = await indexRes.json();
+
+        exerciseSelect.innerHTML = `<option value="" selected disabled>Seleziona un esercizio...</option>`;
+
+        for (const file of files) {
+          const res = await fetch(`${exerciseDir}/${file}`);
+          const data = await res.json();
+
+          exercises[data.id] = data.events;
+
+          const opt = document.createElement("option");
+          opt.value = data.id;
+          opt.textContent = data.name || data.id;
+          exerciseSelect.appendChild(opt);
+        }
+
+        console.log("Esercizi caricati:", Object.keys(exercises));
+      } catch (err) {
+        console.error("Errore caricamento esercizi:", err);
+      }
+    }
+
+    loadExercises().then(() => {
+      if (exercises.chromatic) createNotes("chromatic");
+    });
+
+    /* ---------- DOM references ---------- */
+    const tablature = document.getElementById('tablature');
+    const stage = document.getElementById('stage');
+    const playhead = document.getElementById('playhead');
+    const statusEl = document.getElementById('status');
+    const countdownEl = document.getElementById('countdown');
+
+    const bpmRange = document.getElementById('bpmRange');
+    const bpmNumber = document.getElementById('bpmNumber');
+    const playToggle = document.getElementById('playToggle');
+    const exerciseSelect = document.getElementById('exercise');
+    const message = document.getElementById("tablatureMessage");
+
+    const clickToggle = document.getElementById('clickToggle');
+    const noteToggle = document.getElementById('noteToggle');
+    const scrollToggle = document.getElementById('scrollToggle');
+    const countinToggle = document.getElementById('countinToggle');
+    const themeToggleBtn = document.getElementById('themeToggleBtn');
+    const countInBarsInput = document.getElementById('countInBars');
+
+    /* ---------- State ---------- */
+    let clickSound = true;
+    let noteSound = true;
+    let scrollMode = false;
+    let enableCountIn = true;
+    let isLightTheme = false;
+
+    let audioCtx = null;
+    let isPlaying = false;
+    let countInDone = false;
+    let rafId = null;
+
+    let events = [];
+    let noteIdCounter = 0;
+    let noteIndex = 0;
+    let startTime = 0;
+    let secondsPerBeat = 60 / 80;
+
+    let metroNextTime = 0;
+    let metroBeat = 0;
+
+    let countInBeats = 0;
+    let countInStartTime = 0;
+
+    const measuresCount = 24;
+    const beatPx = 50;
+    const preRollBeats = 0;
+    const baseOffsetPx = 60 + preRollBeats * beatPx;
+    const beatsPerMeasure = 4;
+    const scheduleAheadTime = 0.06;
+    const scheduleWindow = 0.18;
+
+    const stringFrequencies = [329.63, 246.94, 196.00, 146.83, 110.00, 82.41];
+
+    const MEASURES_PER_ROW_DEFAULT = 5;
+    const ROW_HEIGHT = 220;
+
+    /* ---------- Helpers ---------- */
+    function drawMeasures(numMeasures, measuresPerRowOverride) {
+      // rimuovi vecchi elementi measure / number / string prima di ricreare
+      Array.from(tablature.querySelectorAll('.measure-line, .measure-number, .string')).forEach(el => el.remove());
+
+      const measuresPerRow = measuresPerRowOverride || MEASURES_PER_ROW_DEFAULT;
+      const totalRows = Math.ceil(numMeasures / measuresPerRow);
+
+      const contentWidth = (measuresPerRow * beatsPerMeasure * beatPx) + 100;
+      const contentHeight = totalRows * ROW_HEIGHT;
+
+      tablature.style.width = contentWidth + "px";
+      tablature.style.height = Math.max(contentHeight, stage.clientHeight) + "px";
+      stage.style.height = Math.max(totalRows * ROW_HEIGHT, 260) + "px";
+
+      // salva i valori nel DOM per usarli altrove (animateVisual)
+      tablature.dataset.measuresPerRow = measuresPerRow;
+      tablature.dataset.rowHeight = ROW_HEIGHT;
+
+      // crea le battute e le measure-number (per riga, per col)
+      for (let row = 0; row < totalRows; row++) {
+        const startMeasure = row * measuresPerRow;
+        const endMeasure = Math.min(startMeasure + measuresPerRow, numMeasures);
+
+        // misure normali
+        for (let i = startMeasure; i < endMeasure; i++) {
+          const col = i % measuresPerRow;
+          const x = col * beatPx * beatsPerMeasure + 60;
+          const y = row * ROW_HEIGHT;
+
+          const line = document.createElement("div");
+          line.className = "measure-line";
+          line.style.left = x + "px";
+          line.style.top = y + "px";
+          tablature.appendChild(line);
+
+          const num = document.createElement("div");
+          num.className = "measure-number";
+          num.style.left = (x + 6) + "px";
+          num.style.top = (y + 10) + "px";
+          num.textContent = i + 1;
+          tablature.appendChild(num);
+        }
+
+        // aggiungi linea extra alla fine della riga se non scrollMode
+        if (!scrollMode) {
+          const extraX = measuresPerRow * beatsPerMeasure * beatPx + 60;
+          const extraY = row * ROW_HEIGHT;
+          const extraLine = document.createElement("div");
+          extraLine.className = "measure-line";
+          extraLine.style.left = extraX + "px";
+          extraLine.style.top = extraY + "px";
+          tablature.appendChild(extraLine);
+
+          // opzionale: puoi aggiungere numero misura vuoto o indicante la misura successiva
+          const extraNum = document.createElement("div");
+          extraNum.className = "measure-number";
+          extraNum.style.left = (extraX + 6) + "px";
+          extraNum.style.top = (extraY + 10) + "px";
+          extraNum.textContent = ''; // lascia vuoto o metti startMeasure + measuresPerRow
+          tablature.appendChild(extraNum);
+        }
+
+        // crea le 6 corde per riga (solo una volta per riga)
+        for (let s = 0; s < 6; s++) {
+          const stringLine = document.createElement("div");
+          stringLine.className = `string s${s + 1}`;
+          stringLine.style.top = (row * ROW_HEIGHT + 40 + s * 30) + "px";
+          tablature.appendChild(stringLine);
+        }
+      }
+    }
+
+    function clearNotes() {
+      Array.from(tablature.querySelectorAll('.note, .rest')).forEach(n => n.remove());
+      events = [];
+      noteIdCounter = 0;
+    }
+
+    function createNotes(exKey) {
+      clearNotes();
+
+      const sequence = exercises[exKey];
+      if (!sequence) {
+        console.warn(`Esercizio "${exKey}" non trovato.`);
+        return;
+      }
+
+      const totalBeats = sequence.reduce((acc, ev) => {
+        if (ev.type === "note" || ev.type === "chord" || ev.type === "rest") {
+          return acc + (ev.duration || 1);
+        }
+        return acc;
+      }, 0);
+
+      const minMeasures = Math.max(measuresCount, Math.ceil(totalBeats / beatsPerMeasure) + 2);
+
+      // se siamo in modalità scroll, metti tutte le misure in una riga
+      const measuresPerRow = scrollMode ? minMeasures : MEASURES_PER_ROW_DEFAULT;
+      drawMeasures(minMeasures, measuresPerRow);
+
+      // offset e contatori
+      const offsetX = 60 + preRollBeats * beatPx;
+      let currentBeat = 0;
+
+      sequence.forEach(ev => {
+        const row = Math.floor(currentBeat / (beatsPerMeasure * measuresPerRow));
+        const beatInRow = currentBeat % (beatsPerMeasure * measuresPerRow);
+        const rowOffset = row * ROW_HEIGHT;
+
+        if (ev.type === "note") {
+          const stringIndex = ev.string - 1;
+          const y = 40 + stringIndex * 30 + rowOffset; // stringTop già include rowOffset quando trovato
+          const leftPx = offsetX + beatInRow * beatPx;
+          const freq = stringFrequencies[stringIndex] * Math.pow(2, ev.fret / 12);
+
+          const n = document.createElement("div");
+          n.className = "note";
+          n.textContent = String(ev.fret);
+          n.style.left = leftPx + "px";
+          n.style.top = y + "px";
+          n.dataset.freq = freq;
+          n.dataset.string = "s" + ev.string;
+          n.dataset.beat = currentBeat;
+          n.dataset.duration = ev.duration || 1;
+          n.dataset.type = "note";
+          if (ev.techniques) n.dataset.techniques = ev.techniques.join(",");
+
+          n.id = `note-${noteIdCounter++}`;
+          tablature.appendChild(n);
+
+          events.push({
+            el: n,
+            beat: currentBeat,
+            duration: ev.duration || 1,
+            type: "note",
+            freq: freq,
+            string: ev.string,
+            fret: ev.fret,
+            scheduledAt: null
+          });
+
+          currentBeat += ev.duration || 1;
+        }
+
+        else if (ev.type === "chord") {
+          const row = Math.floor(currentBeat / (beatsPerMeasure * measuresPerRow));
+          const beatInRow = currentBeat % (beatsPerMeasure * measuresPerRow);
+          const rowOffset = row * ROW_HEIGHT;
+          const leftPx = offsetX + beatInRow * beatPx;
+
+          ev.notes.forEach(chNote => {
+            const stringIndex = chNote.string;
+            const y = 40 + (stringIndex - 1) * 30 + rowOffset;
+            const freq = stringFrequencies[stringIndex - 1] * Math.pow(2, chNote.fret / 12);
+
+            const n = document.createElement("div");
+            n.className = "note chord-note";
+            n.textContent = String(chNote.fret);
+            n.style.left = leftPx + "px";
+            n.style.top = y + "px";
+            n.dataset.freq = freq;
+            n.dataset.string = "s" + stringIndex;
+            n.dataset.beat = currentBeat;
+            n.dataset.duration = ev.duration || 1;
+            n.dataset.type = "chord";
+
+            n.id = `note-${noteIdCounter++}`;
+            tablature.appendChild(n);
+
+            events.push({
+              el: n,
+              beat: currentBeat,
+              duration: ev.duration || 1,
+              type: "chord",
+              freq: freq,
+              string: stringIndex,
+              fret: chNote.fret,
+              scheduledAt: null
+            });
+          });
+
+          currentBeat += ev.duration || 1;
+        }
+
+        else if (ev.type === "rest") {
+          const r = document.createElement("div");
+          r.className = "rest";
+
+          const leftPx = offsetX + beatInRow * beatPx;
+          const topPx = 40 + rowOffset;
+
+          r.style.left = leftPx + "px";
+          r.style.top = topPx + "px";
+
+          r.dataset.beat = currentBeat;
+          r.dataset.duration = ev.duration || 1;
+          r.dataset.type = "rest";
+          r.id = `note-${noteIdCounter++}`;
+          tablature.appendChild(r);
+
+          events.push({
+            el: r,
+            beat: currentBeat,
+            duration: ev.duration || 1,
+            type: "rest",
+            freq: null,
+            string: null,
+            fret: null,
+            scheduledAt: null
+          });
+
+          currentBeat += ev.duration || 1;
+        }
+      });
+
+      // inizializza playhead sulla prima riga (utile dopo redraw)
+      playhead.style.top = '0px';
+      playhead.style.height = ROW_HEIGHT + 'px';
+      playhead.style.left = baseOffsetPx + 'px';
+    }
+
+    /* ---------- Audio ---------- */
+    function ensureAudio() {
+      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    }
+
+    function playClickSound(isAccent = false, when = null) {
+      if (!audioCtx || !clickSound) return;
+      const t = (when === null) ? audioCtx.currentTime + scheduleAheadTime : when;
+      const o = audioCtx.createOscillator();
+      const g = audioCtx.createGain();
+      o.type = 'square';
+      o.frequency.setValueAtTime(isAccent ? 1100 : 800, t);
+      g.gain.setValueAtTime(isAccent ? 0.22 : 0.14, t);
+      g.gain.exponentialRampToValueAtTime(0.0001, t + 0.06);
+      o.connect(g); g.connect(audioCtx.destination);
+      o.start(t); o.stop(t + 0.07);
+    }
+
+    function playNoteFreq(freq, when = null, durationBeats = 1) {
+      if (!audioCtx || !noteSound) return;
+      const t = (when === null) ? audioCtx.currentTime + scheduleAheadTime : when;
+      const o = audioCtx.createOscillator();
+      const g = audioCtx.createGain();
+      o.type = 'sine';
+      const bpm = Math.max(30, Math.min(240, parseInt(bpmRange.value) || 80));
+      const secPerBeat = 60 / bpm;
+      const durSec = Math.max(0.06, secPerBeat * (durationBeats || 1));
+
+      o.frequency.setValueAtTime(freq, t);
+      g.gain.setValueAtTime(0.28, t);
+      g.gain.exponentialRampToValueAtTime(0.0001, t + durSec);
+      o.connect(g); g.connect(audioCtx.destination);
+      o.start(t); o.stop(t + durSec + 0.02);
+    }
+
+    /* ---------- Scheduler ---------- */
+    function scheduleAhead() {
+      if (!isPlaying || !audioCtx) return;
+
+      const bpm = Math.max(30, Math.min(240, parseInt(bpmRange.value) || 80));
+      secondsPerBeat = 60 / bpm;
+
+      const now = audioCtx.currentTime;
+      const scheduleUntil = now + scheduleWindow;
+
+      if (!metroNextTime || metroNextTime < startTime) {
+        metroNextTime = startTime;
+        metroBeat = 0;
+      }
+
+      while (metroNextTime <= scheduleUntil) {
+        const isAccent = (metroBeat % beatsPerMeasure) === 0;
+        if (clickSound) playClickSound(isAccent, metroNextTime);
+        metroNextTime += secondsPerBeat;
+        metroBeat++;
+      }
+
+      for (; noteIndex < events.length; noteIndex++) {
+        const ev = events[noteIndex];
+        const when = startTime + (ev.beat * secondsPerBeat);
+        if (when > scheduleUntil) break;
+
+        if (ev.type !== "rest" && !isNaN(ev.freq) && noteSound) {
+          playNoteFreq(ev.freq, when, ev.duration);
+        }
+
+        ev.scheduledAt = when;
+      }
+
+      setTimeout(scheduleAhead, 25);
+    }
+
+    /* ---------- Visual Animation ---------- */
+    function animateVisual() {
+      if (!isPlaying) return;
+      if (!audioCtx) { rafId = requestAnimationFrame(animateVisual); return; }
+
+      const now = audioCtx.currentTime;
+
+      for (let i = 0; i < events.length; i++) {
+        const ev = events[i];
+        if (ev.scheduledAt && now >= ev.scheduledAt) {
+          const el = ev.el;
+          if (el) {
+            el.classList.add('active');
+            setTimeout(() => el.classList.remove('active'), 220);
+          }
+          ev.scheduledAt = null;
+        }
+      }
+
+      if (countInStartTime && now < startTime) {
+        const remainingBeats = Math.ceil((startTime - now) / secondsPerBeat);
+        countdownEl.textContent = `${remainingBeats}`;
+      } else {
+        countdownEl.textContent = '';
+      }
+
+      const elapsed = Math.max(0, now - startTime);
+      const totalBeatsPassed = elapsed / secondsPerBeat;
+      const totalBeats = events.length > 0 ? events[events.length - 1].beat + events[events.length - 1].duration : 0;
+
+      if (elapsed >= totalBeats * secondsPerBeat) {
+        stopPlayback();
+        return;
+      }
+
+      const measuresPerRowUsed = parseInt(tablature.dataset.measuresPerRow, 10) || MEASURES_PER_ROW_DEFAULT;
+      const rowHeightUsed = parseInt(tablature.dataset.rowHeight, 10) || ROW_HEIGHT;
+      const beatsPerRow = beatsPerMeasure * measuresPerRowUsed;
+
+      const currentRow = Math.floor(totalBeatsPassed / beatsPerRow);
+      const beatInRow = totalBeatsPassed % beatsPerRow;
+      const xBeat = baseOffsetPx + beatInRow * beatPx;
+      const rowTop = currentRow * rowHeightUsed;
+
+      if (scrollMode) {
+        // playhead fisso al centro; tablatura scorre
+        playhead.style.top = '0px';
+        playhead.style.height = rowHeightUsed + 'px';
+        playhead.style.left = (stage.clientWidth / 2) + 'px';
+        const translateX = (stage.clientWidth / 2) - xBeat;
+        tablature.style.transform = `translateX(${translateX}px)`;
+      } else {
+        // playhead si muove sulla riga (resettando all'inizio di ogni riga)
+        tablature.style.transform = 'translateX(0px)';
+        const clampedLeft = Math.max(0, Math.min(stage.clientWidth, xBeat));
+        playhead.style.left = clampedLeft + 'px';
+        playhead.style.top = rowTop + 'px';
+        playhead.style.height = rowHeightUsed + 'px';
+      }
+
+      // Mantieni il playhead visibile durante la riproduzione
+      if (!scrollMode) keepPlayheadVisible();
+
+      const currentBpm = Math.max(30, Math.min(240, parseInt(bpmRange.value) || 80));
+      statusEl.textContent = `BPM: ${Math.round(currentBpm)} — Scroll: ${scrollMode ? 'On' : 'Off'}`;
+
+      rafId = requestAnimationFrame(animateVisual);
+    }
+
+    let scrollAnim = null;
+    let lastScrollTime = 0;
+
+    function keepPlayheadVisible() {
+      const now = performance.now();
+      const rect = playhead.getBoundingClientRect();
+      const viewH = window.innerHeight;
+      const margin = 100; // distanza dai bordi visibili
+      let targetY = null;
+
+      // scroll solo se non lo abbiamo fatto di recente (cooldown)
+      if (now - lastScrollTime < 500) return;
+
+      if (rect.bottom > viewH - margin) {
+        // playhead troppo in basso → sposta su
+        targetY = window.scrollY + (rect.bottom - viewH * 0.4);
+      } else if (rect.top < margin) {
+        // playhead troppo in alto → sposta giù
+        targetY = window.scrollY + (rect.top - viewH * 0.3);
+      }
+
+      if (targetY !== null) {
+        lastScrollTime = now;
+        startSmoothScroll(targetY);
+      }
+    }
+
+    function startSmoothScroll(targetY) {
+      if (scrollAnim) cancelAnimationFrame(scrollAnim);
+
+      const startY = window.scrollY;
+      const distance = targetY - startY;
+      const duration = 400; // ms
+      const startTime = performance.now();
+
+      // easing quadratico "ease-out"
+      function easeOutQuad(t) {
+        return t * (2 - t);
+      }
+
+      function animate(now) {
+        const elapsed = now - startTime;
+        const progress = Math.min(1, elapsed / duration);
+        const eased = easeOutQuad(progress);
+
+        window.scrollTo(0, startY + distance * eased);
+
+        if (progress < 1) {
+          scrollAnim = requestAnimationFrame(animate);
+        } else {
+          scrollAnim = null;
+        }
+      }
+
+      scrollAnim = requestAnimationFrame(animate);
+    }
+
+    /* ---------- Start/Stop ---------- */
+    function startPlayback() {
+      if (isPlaying) return;
+      ensureAudio();
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+
+      playToggle.textContent = "■";
+      playToggle.classList.add('stop');
+      statusEl.textContent = 'Preparazione...';
+
+      const bpm = Math.max(30, Math.min(240, parseInt(bpmRange.value) || 80));
+      secondsPerBeat = 60 / bpm;
+
+      const baseTime = audioCtx.currentTime + scheduleAheadTime;
+      const countInBars = (!countInDone && enableCountIn) ? Math.max(1, parseInt(countInBarsInput.value) || 1) : 0;
+
+      if (countInBars > 0) {
+        const countInBeats = countInBars * beatsPerMeasure;
+        for (let i = 0; i < countInBeats; i++) {
+          const t = baseTime + i * secondsPerBeat;
+          const isAccent = (i % beatsPerMeasure) === 0;
+          playClickSound(isAccent, t);
+        }
+        startTime = baseTime + countInBeats * secondsPerBeat;
+        countInStartTime = baseTime;
+        countInDone = true;
+      } else {
+        startTime = baseTime;
+        countInStartTime = null;
+      }
+
+      metroNextTime = startTime;
+      metroBeat = 0;
+      noteIndex = 0;
+
+      events.forEach(e => e.scheduledAt = null);
+
+      isPlaying = true;
+      scheduleAhead();
+      rafId = requestAnimationFrame(animateVisual);
+
+      console.log("Playback avviato — startTime:", startTime.toFixed(3));
+      statusEl.textContent = 'In riproduzione...';
+    }
+
+    function stopPlayback() {
+      if (!isPlaying) return;
+
+      isPlaying = false;
+      if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
+
+      playToggle.textContent = "▶";
+      playToggle.classList.remove('stop');
+      tablature.style.transform = 'translateX(0px)';
+      playhead.style.top = '0px';
+      playhead.style.left = baseOffsetPx + 'px';
+      events.forEach(e => { try { e.el.classList.remove('active'); } catch { }; e.scheduledAt = null; });
+      tablature.querySelectorAll('.string').forEach(s => s.classList.remove('active'));
+
+      statusEl.textContent = 'Fermo';
+      countdownEl.textContent = '';
+
+      noteIndex = 0;
+      startTime = 0;
+      metroNextTime = 0;
+      metroBeat = 0;
+      countInBeats = 0;
+      countInStartTime = 0;
+
+      countInDone = false;
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      console.log("Playback fermato");
+    }
+
+    /* ---------- UI Bindings ---------- */
+    playToggle.addEventListener('click', () => { isPlaying ? stopPlayback() : startPlayback(); });
+    bpmRange.addEventListener('input', () => { bpmNumber.value = bpmRange.value; });
+    bpmNumber.addEventListener('input', () => {
+      let v = parseInt(bpmNumber.value) || 60;
+      if (v < 30) v = 30;
+      if (v > 240) v = 240;
+      bpmNumber.value = v; bpmRange.value = v;
+    });
+    exerciseSelect.addEventListener("change", () => {
+      const exKey = exerciseSelect.value;
+
+      // Pulisci tablatura
+      const tablature = document.getElementById("tablature");
+      tablature.innerHTML = `
+    <div class="string s1"></div>
+    <div class="string s2"></div>
+    <div class="string s3"></div>
+    <div class="string s4"></div>
+    <div class="string s5"></div>
+    <div class="string s6"></div>
+  `;
+
+      if (exKey) {
+        // Fade-out del messaggio
+        message.classList.add("hidden");
+
+        // Dopo il fade, eventualmente nascondi display (opzionale)
+        setTimeout(() => {
+          message.style.display = "none";
+        }, 500);
+
+        createNotes(exKey);
+      }
+    });
+
+    function toggleButtonVisual(btn, flag) { btn.style.opacity = flag ? '1' : '0.55'; }
+
+    clickToggle.addEventListener('click', () => { clickSound = !clickSound; toggleButtonVisual(clickToggle, clickSound); console.log("Metronomo:", clickSound); });
+    noteToggle.addEventListener('click', () => { noteSound = !noteSound; toggleButtonVisual(noteToggle, noteSound); console.log("Note:", noteSound); });
+    scrollToggle.addEventListener('click', () => {
+      scrollMode = !scrollMode;
+      toggleButtonVisual(scrollToggle, scrollMode);
+      // fermiamo la riproduzione al cambio di layout (evita scheduling mismatch)
+      if (isPlaying) stopPlayback();
+      // ridisegna tablatura nella nuova modalità
+      createNotes(exerciseSelect.value);
+    });
+    countinToggle.addEventListener('click', () => { enableCountIn = !enableCountIn; toggleButtonVisual(countinToggle, enableCountIn); console.log("Count-in:", enableCountIn); });
+    themeToggleBtn.addEventListener('click', () => { isLightTheme = !isLightTheme; document.body.classList.toggle('light', isLightTheme); toggleButtonVisual(themeToggleBtn, isLightTheme); console.log("Tema chiaro:", isLightTheme); });
+
+    function ensureAudioOnGesture() { ensureAudio(); if (audioCtx.state === 'suspended') audioCtx.resume(); window.removeEventListener('pointerdown', ensureAudioOnGesture); }
+    window.addEventListener('pointerdown', ensureAudioOnGesture);
+    window.addEventListener('resize', () => createNotes(exerciseSelect.value));
+
+    /* ---------- Init ---------- */
+    createNotes(exerciseSelect.value);
+    playhead.style.left = baseOffsetPx + 'px';
+    [clickToggle, noteToggle, scrollToggle, countinToggle, themeToggleBtn].forEach(btn => { btn.style.transition = 'opacity .12s'; });
+    toggleButtonVisual(clickToggle, clickSound);
+    toggleButtonVisual(noteToggle, noteSound);
+    toggleButtonVisual(scrollToggle, scrollMode);
+    toggleButtonVisual(countinToggle, enableCountIn);
+    toggleButtonVisual(themeToggleBtn, isLightTheme);
+
+    document.getElementById('openLibraryBtn').addEventListener('click', () => console.log("Apri libreria (placeholder)"));
+    document.getElementById('profileBtn').addEventListener('click', () => console.log("Apri profilo (placeholder)"));
+
+    console.log("Inizializzazione completa (scheduler riscritto)");
+  </script>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+</body>
+
+</html>

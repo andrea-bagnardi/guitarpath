@@ -1,0 +1,81 @@
+{
+    "id": "full_song_knockin",
+    "name": "Giorno 5 - Suona un brano completo - Knockin' on Heaven's Door",
+    "description": "1️⃣ Suona un brano completo\n\n🎵 Brano: \"Knockin' on Heaven's Door\" (Bob Dylan)\n\nProgressione: G – D – Am – G – D – C\n\n🎯 Obiettivo: migliorare le transizioni tra accordi e mantenere una ritmica costante.\n\n💬 Suggerimenti pratici:\n- Usa il metronomo o la base originale (circa 70–75 bpm).\n- Mantieni il tempo anche se sbagli un cambio: non fermarti.\n- Fai attenzione alla pennata, alternando ↓ ↓ ↑ ↑ ↓ ↑ con accenti sul 2 e 4.\n- Dopo aver eseguito la progressione base, prova ad aggiungere dinamica (una volta piano, una volta forte).\n\n🎥 Video consigliato: [Knockin' On Heaven's Door - Guitar Lesson (JustinGuitar)](https://www.youtube.com/watch?v=5GUc4CwC1_s)",
+    "video": "https://www.youtube.com/watch?v=5GUc4CwC1_s",
+    "events": [
+      {
+        "type": "chord",
+        "name": "G",
+        "duration": 4,
+        "notes": [
+          { "string": 6, "fret": 3 },
+          { "string": 5, "fret": 2 },
+          { "string": 4, "fret": 0 },
+          { "string": 3, "fret": 0 },
+          { "string": 2, "fret": 0 },
+          { "string": 1, "fret": 3 }
+        ]
+      },
+      {
+        "type": "chord",
+        "name": "D",
+        "duration": 4,
+        "notes": [
+          { "string": 4, "fret": 0 },
+          { "string": 3, "fret": 2 },
+          { "string": 2, "fret": 3 },
+          { "string": 1, "fret": 2 }
+        ]
+      },
+      {
+        "type": "chord",
+        "name": "Am",
+        "duration": 4,
+        "notes": [
+          { "string": 5, "fret": 0 },
+          { "string": 4, "fret": 2 },
+          { "string": 3, "fret": 2 },
+          { "string": 2, "fret": 1 },
+          { "string": 1, "fret": 0 }
+        ]
+      },
+      {
+        "type": "chord",
+        "name": "G",
+        "duration": 4,
+        "notes": [
+          { "string": 6, "fret": 3 },
+          { "string": 5, "fret": 2 },
+          { "string": 4, "fret": 0 },
+          { "string": 3, "fret": 0 },
+          { "string": 2, "fret": 0 },
+          { "string": 1, "fret": 3 }
+        ]
+      },
+      {
+        "type": "chord",
+        "name": "D",
+        "duration": 4,
+        "notes": [
+          { "string": 4, "fret": 0 },
+          { "string": 3, "fret": 2 },
+          { "string": 2, "fret": 3 },
+          { "string": 1, "fret": 2 }
+        ]
+      },
+      {
+        "type": "chord",
+        "name": "C",
+        "duration": 4,
+        "notes": [
+          { "string": 5, "fret": 3 },
+          { "string": 4, "fret": 2 },
+          { "string": 3, "fret": 0 },
+          { "string": 2, "fret": 1 },
+          { "string": 1, "fret": 0 }
+        ]
+      }
+    ]
+  }
+  

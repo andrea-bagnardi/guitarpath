@@ -1,0 +1,34 @@
+{
+    "id": "minor_pentatonic_pos1",
+    "name": "Giorno 3 - Scala pentatonica minore - Posizione 1",
+    "description": "Scala A minor pentatonic, posizione 1. Esegui lentamente con alternate picking, concentrandoti sulla precisione e sul timing.",
+    "video": "https://www.youtube.com/watch?v=2cFvFb0gyKk",
+    "events": [
+      {"type":"note","duration":1,"string":6,"fret":5},
+      {"type":"note","duration":1,"string":6,"fret":8},
+      {"type":"note","duration":1,"string":5,"fret":5},
+      {"type":"note","duration":1,"string":5,"fret":7},
+      {"type":"note","duration":1,"string":4,"fret":5},
+      {"type":"note","duration":1,"string":4,"fret":7},
+      {"type":"note","duration":1,"string":3,"fret":5},
+      {"type":"note","duration":1,"string":3,"fret":7},
+      {"type":"note","duration":1,"string":2,"fret":5},
+      {"type":"note","duration":1,"string":2,"fret":8},
+      {"type":"note","duration":1,"string":1,"fret":5},
+      {"type":"note","duration":1,"string":1,"fret":8},
+
+      {"type":"note","duration":1,"string":1,"fret":8},
+      {"type":"note","duration":1,"string":1,"fret":5},
+      {"type":"note","duration":1,"string":2,"fret":8},
+      {"type":"note","duration":1,"string":2,"fret":5},
+      {"type":"note","duration":1,"string":3,"fret":7},
+      {"type":"note","duration":1,"string":3,"fret":5},
+      {"type":"note","duration":1,"string":4,"fret":7},
+      {"type":"note","duration":1,"string":4,"fret":5},
+      {"type":"note","duration":1,"string":5,"fret":7},
+      {"type":"note","duration":1,"string":5,"fret":5},
+      {"type":"note","duration":1,"string":6,"fret":8},
+      {"type":"note","duration":1,"string":6,"fret":5}
+    ]
+  }
+  

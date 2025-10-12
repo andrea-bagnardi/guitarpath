@@ -1,0 +1,87 @@
+{
+  "id": "theory_intervals_chords",
+  "name": "Giorno 4 - Teoria: intervalli e costruzione accordi",
+  "description": "📘 Descrizione dettagliata\n1. Intervalli: tonica, terza, quinta\n\nUn intervallo è la distanza musicale tra due suoni. Su tastiera o su manico di chitarra, si conta quante note (o gradi della scala) separano le due note, includendo la nota iniziale. È una distanza che può essere “melodica” (note in successione) o “armonico” (note suonate insieme). \nfretjam.com\n+3\nChitarra Fingerstyle\n+3\nHappy Bluesman\n+3\n\nAlcuni intervalli sono definiti “giusti” (unisono, quarta, quinta, ottava) e altri “maggiori/minori” (seconda, terza, sesta, settima) a seconda del contesto e del numero di semitoni che li separano. \nAntonio Vaiana\n+2\nChitarra Fingerstyle\n+2\n\nPartendo da una tonica (nota “di base”, o radice), la terza è l’intervallo che salta due note della scala (o “due gradi”), e la quinta salta un ulteriore grado. In pratica, se la tonica è “C”, la terza (maggiore) è “E”, e la quinta (giusta) è “G” — da cui nasce l’accordo C = C – E – G. \nmusictheory.net\n+2\nMedium\n+2\n\nLa terza può essere maggiore oppure minore (dipende dal numero di semitoni), e questo determina se l’accordo sarà maggiore o minore. La quinta di solito rimane “giusta” nei casi più semplici. \nfretjam.com\n+3\nmusictheory.net\n+3\nMedium\n+3\n\n2. Costruzione di un accordo triade\n\nUn accordo triade è composto da tre note: la tonica (1), la terza (3), e la quinta (5).\n\nSi costruisce “sovrapponendo terze”: partendo da 1 (tonica), si salta una nota per arrivare a 3, poi da 3 si salta una nota per arrivare a 5. Questa è la modalità principale per costruire accordi maggiori o minori. \nHappy Bluesman\n+4\nMedium\n+4\nfretjam.com\n+4\n\nEsempio: C = C – E – G.\n\nC → E = intervallo di terza maggiore\n\nE → G = intervallo di terza minore\nQuindi “C” è un accordo maggiore perché ha una terza maggiore + una terza minore. \nMedium\n+2\nTrueFire Blog - Guitar Lessons\n+2\n\n3. Perché “C = C E G”\n\nQuando diciamo “C” intendiamo implicitamente l’accordo con la tonica C, la terza E e la quinta G.\n\nL’ordine non è importante (si possono invertire le note), ma la relazione intervallare tra di esse è quello che definisce il “colore” dell’accordo.\n\nQuando impari gli accordi non memorizzi solo diteggiature, ma “quali intervalli contiene quell’accordo”: così puoi costruirli su qualsiasi tonalità.\n\n4. Consigli pratici per l’esercizio\n\nCancella ogni timore: parti lentamente, scrivi la scala (o le note), poi estrai tonica, terza e quinta.\n\nUsa una tastiera visiva mentale, conta i semitoni.\n\nProva a costruire sia accordi maggiori che minori (es. C vs Am) e confronta le differenze nella terza.\n\nDopo averlo fatto su carta, applicalo sulla chitarra: suona C = C–E–G, poi Am = A–C–E, ecc.",
+  "video": "https://www.youtube.com/watch?v=LtmUy1gUIaU",
+  "events": [
+    {
+      "type": "note",
+      "name": "C",
+      "duration": 1,
+      "string": 5,
+      "fret": 3
+    },
+    {
+      "type": "note",
+      "name": "E",
+      "duration": 1,
+      "string": 4,
+      "fret": 2
+    },
+    {
+      "type": "note",
+      "name": "G",
+      "duration": 1,
+      "string": 3,
+      "fret": 0
+    },
+    {
+      "type": "chord",
+      "name": "C",
+      "duration": 2,
+      "notes": [
+        { "string": 5, "fret": 3 },
+        { "string": 4, "fret": 2 },
+        { "string": 3, "fret": 0 },
+        { "string": 2, "fret": 1 },
+        { "string": 1, "fret": 0 }
+      ]
+    },
+    {
+      "type": "note",
+      "name": "A",
+      "duration": 1,
+      "string": 5,
+      "fret": 0
+    },
+    {
+      "type": "note",
+      "name": "C",
+      "duration": 1,
+      "string": 2,
+      "fret": 1
+    },
+    {
+      "type": "note",
+      "name": "E",
+      "duration": 1,
+      "string": 4,
+      "fret": 2
+    },
+    {
+      "type": "chord",
+      "name": "Am",
+      "duration": 2,
+      "notes": [
+        { "string": 5, "fret": 0 },
+        { "string": 4, "fret": 2 },
+        { "string": 3, "fret": 2 },
+        { "string": 2, "fret": 1 },
+        { "string": 1, "fret": 0 }
+      ]
+    },
+    {
+      "type": "chord",
+      "name": "G",
+      "duration": 2,
+      "notes": [
+        { "string": 6, "fret": 3 },
+        { "string": 5, "fret": 2 },
+        { "string": 4, "fret": 0 },
+        { "string": 3, "fret": 0 },
+        { "string": 2, "fret": 0 },
+        { "string": 1, "fret": 3 }
+      ]
+    }
+  ]
+}

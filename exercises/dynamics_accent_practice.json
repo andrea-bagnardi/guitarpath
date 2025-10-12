@@ -1,0 +1,64 @@
+{
+    "id": "dynamics_accent_practice",
+    "name": "Giorno 4 - Dinamica e accenti",
+    "description": "Esercizio di controllo della dinamica: esegui il pattern ↓ ↓ ↑ ↑ ↓ ↑ alternando una volta piano e una volta forte. Lavora sugli accenti su 2 e 4 e sulla sensibilità della mano destra.",
+    "video": "https://www.youtube.com/watch?v=6QK5-A6D2ew",
+    "events": [
+      {"type":"chord","duration":1,"name":"G","velocity":0.4,"notes":[{"string":6,"fret":3},{"string":5,"fret":2},{"string":4,"fret":0},{"string":3,"fret":0},{"string":2,"fret":0},{"string":1,"fret":3}]},
+      {"type":"chord","duration":0.5,"name":"G","velocity":0.4,"notes":[{"string":6,"fret":3},{"string":5,"fret":2},{"string":4,"fret":0},{"string":3,"fret":0},{"string":2,"fret":0},{"string":1,"fret":3}]},
+      {"type":"chord","duration":1,"name":"G","velocity":0.4,"notes":[{"string":6,"fret":3},{"string":5,"fret":2},{"string":4,"fret":0},{"string":3,"fret":0},{"string":2,"fret":0},{"string":1,"fret":3}]},
+      {"type":"chord","duration":0.5,"name":"G","velocity":0.4,"notes":[{"string":6,"fret":3},{"string":5,"fret":2},{"string":4,"fret":0},{"string":3,"fret":0},{"string":2,"fret":0},{"string":1,"fret":3}]},
+      {"type":"chord","duration":0.5,"name":"G","velocity":0.4,"notes":[{"string":6,"fret":3},{"string":5,"fret":2},{"string":4,"fret":0},{"string":3,"fret":0},{"string":2,"fret":0},{"string":1,"fret":3}]},
+      {"type":"chord","duration":0.5,"name":"G","velocity":0.4,"notes":[{"string":6,"fret":3},{"string":5,"fret":2},{"string":4,"fret":0},{"string":3,"fret":0},{"string":2,"fret":0},{"string":1,"fret":3}]},
+  
+      {"type":"chord","duration":1,"name":"D","velocity":0.4,"notes":[{"string":4,"fret":0},{"string":3,"fret":2},{"string":2,"fret":3},{"string":1,"fret":2}]},
+      {"type":"chord","duration":0.5,"name":"D","velocity":0.4,"notes":[{"string":4,"fret":0},{"string":3,"fret":2},{"string":2,"fret":3},{"string":1,"fret":2}]},
+      {"type":"chord","duration":1,"name":"D","velocity":0.4,"notes":[{"string":4,"fret":0},{"string":3,"fret":2},{"string":2,"fret":3},{"string":1,"fret":2}]},
+      {"type":"chord","duration":0.5,"name":"D","velocity":0.4,"notes":[{"string":4,"fret":0},{"string":3,"fret":2},{"string":2,"fret":3},{"string":1,"fret":2}]},
+      {"type":"chord","duration":0.5,"name":"D","velocity":0.4,"notes":[{"string":4,"fret":0},{"string":3,"fret":2},{"string":2,"fret":3},{"string":1,"fret":2}]},
+      {"type":"chord","duration":0.5,"name":"D","velocity":0.4,"notes":[{"string":4,"fret":0},{"string":3,"fret":2},{"string":2,"fret":3},{"string":1,"fret":2}]},
+  
+      {"type":"chord","duration":1,"name":"Em","velocity":0.4,"notes":[{"string":6,"fret":0},{"string":5,"fret":2},{"string":4,"fret":2},{"string":3,"fret":0},{"string":2,"fret":0},{"string":1,"fret":0}]},
+      {"type":"chord","duration":0.5,"name":"Em","velocity":0.4,"notes":[{"string":6,"fret":0},{"string":5,"fret":2},{"string":4,"fret":2},{"string":3,"fret":0},{"string":2,"fret":0},{"string":1,"fret":0}]},
+      {"type":"chord","duration":1,"name":"Em","velocity":0.4,"notes":[{"string":6,"fret":0},{"string":5,"fret":2},{"string":4,"fret":2},{"string":3,"fret":0},{"string":2,"fret":0},{"string":1,"fret":0}]},
+      {"type":"chord","duration":0.5,"name":"Em","velocity":0.4,"notes":[{"string":6,"fret":0},{"string":5,"fret":2},{"string":4,"fret":2},{"string":3,"fret":0},{"string":2,"fret":0},{"string":1,"fret":0}]},
+      {"type":"chord","duration":0.5,"name":"Em","velocity":0.4,"notes":[{"string":6,"fret":0},{"string":5,"fret":2},{"string":4,"fret":2},{"string":3,"fret":0},{"string":2,"fret":0},{"string":1,"fret":0}]},
+      {"type":"chord","duration":0.5,"name":"Em","velocity":0.4,"notes":[{"string":6,"fret":0},{"string":5,"fret":2},{"string":4,"fret":2},{"string":3,"fret":0},{"string":2,"fret":0},{"string":1,"fret":0}]},
+  
+      {"type":"chord","duration":1,"name":"C","velocity":0.4,"notes":[{"string":5,"fret":3},{"string":4,"fret":2},{"string":3,"fret":0},{"string":2,"fret":1},{"string":1,"fret":0}]},
+      {"type":"chord","duration":0.5,"name":"C","velocity":0.4,"notes":[{"string":5,"fret":3},{"string":4,"fret":2},{"string":3,"fret":0},{"string":2,"fret":1},{"string":1,"fret":0}]},
+      {"type":"chord","duration":1,"name":"C","velocity":0.4,"notes":[{"string":5,"fret":3},{"string":4,"fret":2},{"string":3,"fret":0},{"string":2,"fret":1},{"string":1,"fret":0}]},
+      {"type":"chord","duration":0.5,"name":"C","velocity":0.4,"notes":[{"string":5,"fret":3},{"string":4,"fret":2},{"string":3,"fret":0},{"string":2,"fret":1},{"string":1,"fret":0}]},
+      {"type":"chord","duration":0.5,"name":"C","velocity":0.4,"notes":[{"string":5,"fret":3},{"string":4,"fret":2},{"string":3,"fret":0},{"string":2,"fret":1},{"string":1,"fret":0}]},
+      {"type":"chord","duration":0.5,"name":"C","velocity":0.4,"notes":[{"string":5,"fret":3},{"string":4,"fret":2},{"string":3,"fret":0},{"string":2,"fret":1},{"string":1,"fret":0}]},
+  
+      {"type":"chord","duration":1,"name":"G","velocity":1.0,"notes":[{"string":6,"fret":3},{"string":5,"fret":2},{"string":4,"fret":0},{"string":3,"fret":0},{"string":2,"fret":0},{"string":1,"fret":3}]},
+      {"type":"chord","duration":0.5,"name":"G","velocity":1.0,"notes":[{"string":6,"fret":3},{"string":5,"fret":2},{"string":4,"fret":0},{"string":3,"fret":0},{"string":2,"fret":0},{"string":1,"fret":3}]},
+      {"type":"chord","duration":1,"name":"G","velocity":1.0,"notes":[{"string":6,"fret":3},{"string":5,"fret":2},{"string":4,"fret":0},{"string":3,"fret":0},{"string":2,"fret":0},{"string":1,"fret":3}]},
+      {"type":"chord","duration":0.5,"name":"G","velocity":1.0,"notes":[{"string":6,"fret":3},{"string":5,"fret":2},{"string":4,"fret":0},{"string":3,"fret":0},{"string":2,"fret":0},{"string":1,"fret":3}]},
+      {"type":"chord","duration":0.5,"name":"G","velocity":1.0,"notes":[{"string":6,"fret":3},{"string":5,"fret":2},{"string":4,"fret":0},{"string":3,"fret":0},{"string":2,"fret":0},{"string":1,"fret":3}]},
+      {"type":"chord","duration":0.5,"name":"G","velocity":1.0,"notes":[{"string":6,"fret":3},{"string":5,"fret":2},{"string":4,"fret":0},{"string":3,"fret":0},{"string":2,"fret":0},{"string":1,"fret":3}]},
+  
+      {"type":"chord","duration":1,"name":"D","velocity":1.0,"notes":[{"string":4,"fret":0},{"string":3,"fret":2},{"string":2,"fret":3},{"string":1,"fret":2}]},
+      {"type":"chord","duration":0.5,"name":"D","velocity":1.0,"notes":[{"string":4,"fret":0},{"string":3,"fret":2},{"string":2,"fret":3},{"string":1,"fret":2}]},
+      {"type":"chord","duration":1,"name":"D","velocity":1.0,"notes":[{"string":4,"fret":0},{"string":3,"fret":2},{"string":2,"fret":3},{"string":1,"fret":2}]},
+      {"type":"chord","duration":0.5,"name":"D","velocity":1.0,"notes":[{"string":4,"fret":0},{"string":3,"fret":2},{"string":2,"fret":3},{"string":1,"fret":2}]},
+      {"type":"chord","duration":0.5,"name":"D","velocity":1.0,"notes":[{"string":4,"fret":0},{"string":3,"fret":2},{"string":2,"fret":3},{"string":1,"fret":2}]},
+      {"type":"chord","duration":0.5,"name":"D","velocity":1.0,"notes":[{"string":4,"fret":0},{"string":3,"fret":2},{"string":2,"fret":3},{"string":1,"fret":2}]},
+  
+      {"type":"chord","duration":1,"name":"Em","velocity":1.0,"notes":[{"string":6,"fret":0},{"string":5,"fret":2},{"string":4,"fret":2},{"string":3,"fret":0},{"string":2,"fret":0},{"string":1,"fret":0}]},
+      {"type":"chord","duration":0.5,"name":"Em","velocity":1.0,"notes":[{"string":6,"fret":0},{"string":5,"fret":2},{"string":4,"fret":2},{"string":3,"fret":0},{"string":2,"fret":0},{"string":1,"fret":0}]},
+      {"type":"chord","duration":1,"name":"Em","velocity":1.0,"notes":[{"string":6,"fret":0},{"string":5,"fret":2},{"string":4,"fret":2},{"string":3,"fret":0},{"string":2,"fret":0},{"string":1,"fret":0}]},
+      {"type":"chord","duration":0.5,"name":"Em","velocity":1.0,"notes":[{"string":6,"fret":0},{"string":5,"fret":2},{"string":4,"fret":2},{"string":3,"fret":0},{"string":2,"fret":0},{"string":1,"fret":0}]},
+      {"type":"chord","duration":0.5,"name":"Em","velocity":1.0,"notes":[{"string":6,"fret":0},{"string":5,"fret":2},{"string":4,"fret":2},{"string":3,"fret":0},{"string":2,"fret":0},{"string":1,"fret":0}]},
+      {"type":"chord","duration":0.5,"name":"Em","velocity":1.0,"notes":[{"string":6,"fret":0},{"string":5,"fret":2},{"string":4,"fret":2},{"string":3,"fret":0},{"string":2,"fret":0},{"string":1,"fret":0}]},
+  
+      {"type":"chord","duration":1,"name":"C","velocity":1.0,"notes":[{"string":5,"fret":3},{"string":4,"fret":2},{"string":3,"fret":0},{"string":2,"fret":1},{"string":1,"fret":0}]},
+      {"type":"chord","duration":0.5,"name":"C","velocity":1.0,"notes":[{"string":5,"fret":3},{"string":4,"fret":2},{"string":3,"fret":0},{"string":2,"fret":1},{"string":1,"fret":0}]},
+      {"type":"chord","duration":1,"name":"C","velocity":1.0,"notes":[{"string":5,"fret":3},{"string":4,"fret":2},{"string":3,"fret":0},{"string":2,"fret":1},{"string":1,"fret":0}]},
+      {"type":"chord","duration":0.5,"name":"C","velocity":1.0,"notes":[{"string":5,"fret":3},{"string":4,"fret":2},{"string":3,"fret":0},{"string":2,"fret":1},{"string":1,"fret":0}]},
+      {"type":"chord","duration":0.5,"name":"C","velocity":1.0,"notes":[{"string":5,"fret":3},{"string":4,"fret":2},{"string":3,"fret":0},{"string":2,"fret":1},{"string":1,"fret":0}]},
+      {"type":"chord","duration":0.5,"name":"C","velocity":1.0,"notes":[{"string":5,"fret":3},{"string":4,"fret":2},{"string":3,"fret":0},{"string":2,"fret":1},{"string":1,"fret":0}]}
+    ]
+  }
+  

@@ -1,0 +1,48 @@
+{
+    "id": "rhythmic_sequence",
+    "name": "Giorno 3 - Sequenza ritmica - Mini pattern",
+    "description": "Esercizio di mini-pattern su A minor pentatonic. Metronomo iniziale a 70 bpm, aumenta a 90 bpm. Focus su precisione e pennata alternata.",
+    "video": "",
+    "events": [
+      {"type":"note","duration":1,"string":5,"fret":5},
+      {"type":"note","duration":1,"string":5,"fret":7},
+      {"type":"note","duration":1,"string":4,"fret":5},
+      {"type":"note","duration":1,"string":4,"fret":7},
+      {"type":"note","duration":1,"string":3,"fret":5},
+      {"type":"note","duration":1,"string":3,"fret":7},
+      {"type":"note","duration":1,"string":2,"fret":5},
+      {"type":"note","duration":1,"string":2,"fret":8},
+
+      {"type":"note","duration":1,"string":2,"fret":8},
+      {"type":"note","duration":1,"string":2,"fret":5},
+      {"type":"note","duration":1,"string":3,"fret":7},
+      {"type":"note","duration":1,"string":3,"fret":5},
+      {"type":"note","duration":1,"string":4,"fret":7},
+      {"type":"note","duration":1,"string":4,"fret":5},
+      {"type":"note","duration":1,"string":5,"fret":7},
+      {"type":"note","duration":1,"string":5,"fret":5},
+
+      {"type":"note","duration":1,"string":5,"fret":5},
+      {"type":"note","duration":1,"string":5,"fret":7},
+      {"type":"note","duration":1,"string":4,"fret":7},
+      {"type":"note","duration":1,"string":4,"fret":5},
+      {"type":"note","duration":1,"string":3,"fret":5},
+      {"type":"note","duration":1,"string":3,"fret":7},
+      {"type":"note","duration":1,"string":2,"fret":8},
+      {"type":"note","duration":1,"string":2,"fret":5},
+
+      {"type":"note","duration":1,"string":5,"fret":5},
+      {"type":"note","duration":1,"string":5,"fret":6},
+      {"type":"note","duration":1,"string":5,"fret":7},
+      {"type":"note","duration":1,"string":4,"fret":5},
+      {"type":"note","duration":1,"string":4,"fret":6},
+      {"type":"note","duration":1,"string":4,"fret":7},
+      {"type":"note","duration":1,"string":3,"fret":5},
+      {"type":"note","duration":1,"string":3,"fret":6},
+      {"type":"note","duration":1,"string":3,"fret":7},
+      {"type":"note","duration":1,"string":2,"fret":5},
+      {"type":"note","duration":1,"string":2,"fret":6},
+      {"type":"note","duration":1,"string":2,"fret":8}
+    ]
+  }
+  

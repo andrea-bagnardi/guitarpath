@@ -1,0 +1,36 @@
+{
+    "id": "pop_strumming",
+    "name": "Giorno 4 - Strumming complesso (Pattern Pop)",
+    "description": "Pattern pop 4/4: ↓ ↓ ↑ ↑ ↓ ↑ con accenti su 2 e 4, su progressione G–D–Em–C. Mantieni il movimento fluido e costante della mano destra; cura gli accenti sulle battute 2 e 4.",
+    "video": "https://www.youtube.com/watch?v=oqw0GQdYy9Y",
+    "events": [
+      {"type":"chord","duration":1,"name":"G","direction":"down","notes":[{"string":6,"fret":3},{"string":5,"fret":2},{"string":4,"fret":0},{"string":3,"fret":0},{"string":2,"fret":0},{"string":1,"fret":3}]},
+      {"type":"chord","duration":0.5,"name":"G","direction":"down","techniques":["accent"],"notes":[{"string":6,"fret":3},{"string":5,"fret":2},{"string":4,"fret":0},{"string":3,"fret":0},{"string":2,"fret":0},{"string":1,"fret":3}]},
+      {"type":"chord","duration":1,"name":"G","direction":"up","notes":[{"string":6,"fret":3},{"string":5,"fret":2},{"string":4,"fret":0},{"string":3,"fret":0},{"string":2,"fret":0},{"string":1,"fret":3}]},
+      {"type":"chord","duration":0.5,"name":"G","direction":"up","techniques":["accent"],"notes":[{"string":6,"fret":3},{"string":5,"fret":2},{"string":4,"fret":0},{"string":3,"fret":0},{"string":2,"fret":0},{"string":1,"fret":3}]},
+      {"type":"chord","duration":0.5,"name":"G","direction":"down","notes":[{"string":6,"fret":3},{"string":5,"fret":2},{"string":4,"fret":0},{"string":3,"fret":0},{"string":2,"fret":0},{"string":1,"fret":3}]},
+      {"type":"chord","duration":0.5,"name":"G","direction":"up","notes":[{"string":6,"fret":3},{"string":5,"fret":2},{"string":4,"fret":0},{"string":3,"fret":0},{"string":2,"fret":0},{"string":1,"fret":3}]},
+  
+      {"type":"chord","duration":1,"name":"D","direction":"down","notes":[{"string":4,"fret":0},{"string":3,"fret":2},{"string":2,"fret":3},{"string":1,"fret":2}]},
+      {"type":"chord","duration":0.5,"name":"D","direction":"down","techniques":["accent"],"notes":[{"string":4,"fret":0},{"string":3,"fret":2},{"string":2,"fret":3},{"string":1,"fret":2}]},
+      {"type":"chord","duration":1,"name":"D","direction":"up","notes":[{"string":4,"fret":0},{"string":3,"fret":2},{"string":2,"fret":3},{"string":1,"fret":2}]},
+      {"type":"chord","duration":0.5,"name":"D","direction":"up","techniques":["accent"],"notes":[{"string":4,"fret":0},{"string":3,"fret":2},{"string":2,"fret":3},{"string":1,"fret":2}]},
+      {"type":"chord","duration":0.5,"name":"D","direction":"down","notes":[{"string":4,"fret":0},{"string":3,"fret":2},{"string":2,"fret":3},{"string":1,"fret":2}]},
+      {"type":"chord","duration":0.5,"name":"D","direction":"up","notes":[{"string":4,"fret":0},{"string":3,"fret":2},{"string":2,"fret":3},{"string":1,"fret":2}]},
+  
+      {"type":"chord","duration":1,"name":"Em","direction":"down","notes":[{"string":6,"fret":0},{"string":5,"fret":2},{"string":4,"fret":2},{"string":3,"fret":0},{"string":2,"fret":0},{"string":1,"fret":0}]},
+      {"type":"chord","duration":0.5,"name":"Em","direction":"down","techniques":["accent"],"notes":[{"string":6,"fret":0},{"string":5,"fret":2},{"string":4,"fret":2},{"string":3,"fret":0},{"string":2,"fret":0},{"string":1,"fret":0}]},
+      {"type":"chord","duration":1,"name":"Em","direction":"up","notes":[{"string":6,"fret":0},{"string":5,"fret":2},{"string":4,"fret":2},{"string":3,"fret":0},{"string":2,"fret":0},{"string":1,"fret":0}]},
+      {"type":"chord","duration":0.5,"name":"Em","direction":"up","techniques":["accent"],"notes":[{"string":6,"fret":0},{"string":5,"fret":2},{"string":4,"fret":2},{"string":3,"fret":0},{"string":2,"fret":0},{"string":1,"fret":0}]},
+      {"type":"chord","duration":0.5,"name":"Em","direction":"down","notes":[{"string":6,"fret":0},{"string":5,"fret":2},{"string":4,"fret":2},{"string":3,"fret":0},{"string":2,"fret":0},{"string":1,"fret":0}]},
+      {"type":"chord","duration":0.5,"name":"Em","direction":"up","notes":[{"string":6,"fret":0},{"string":5,"fret":2},{"string":4,"fret":2},{"string":3,"fret":0},{"string":2,"fret":0},{"string":1,"fret":0}]},
+  
+      {"type":"chord","duration":1,"name":"C","direction":"down","notes":[{"string":5,"fret":3},{"string":4,"fret":2},{"string":3,"fret":0},{"string":2,"fret":1},{"string":1,"fret":0}]},
+      {"type":"chord","duration":0.5,"name":"C","direction":"down","techniques":["accent"],"notes":[{"string":5,"fret":3},{"string":4,"fret":2},{"string":3,"fret":0},{"string":2,"fret":1},{"string":1,"fret":0}]},
+      {"type":"chord","duration":1,"name":"C","direction":"up","notes":[{"string":5,"fret":3},{"string":4,"fret":2},{"string":3,"fret":0},{"string":2,"fret":1},{"string":1,"fret":0}]},
+      {"type":"chord","duration":0.5,"name":"C","direction":"up","techniques":["accent"],"notes":[{"string":5,"fret":3},{"string":4,"fret":2},{"string":3,"fret":0},{"string":2,"fret":1},{"string":1,"fret":0}]},
+      {"type":"chord","duration":0.5,"name":"C","direction":"down","notes":[{"string":5,"fret":3},{"string":4,"fret":2},{"string":3,"fret":0},{"string":2,"fret":1},{"string":1,"fret":0}]},
+      {"type":"chord","duration":0.5,"name":"C","direction":"up","notes":[{"string":5,"fret":3},{"string":4,"fret":2},{"string":3,"fret":0},{"string":2,"fret":1},{"string":1,"fret":0}]}
+    ]
+  }
+  

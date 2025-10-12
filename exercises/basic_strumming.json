@@ -1,0 +1,36 @@
+{
+    "id": "basic_strumming",
+    "name": "Giorno 1 - Ritmica base 4/4",
+    "description": "Esercizio di strumming 4/4: ↓ ↓ ↑ ↑ ↓ ↑ su una progressione C–G–Am–F. Concentrati sul timing e sulla costanza della mano destra.",
+    "video": "https://www.youtube.com/watch?v=2Rr6xGZrUoM",
+    "events": [
+      {"type":"chord","duration":1,"name":"C","notes":[{"string":5,"fret":3},{"string":4,"fret":2},{"string":3,"fret":0},{"string":2,"fret":1},{"string":1,"fret":0}]},
+      {"type":"chord","duration":0.5,"name":"C","notes":[{"string":5,"fret":3},{"string":4,"fret":2},{"string":3,"fret":0},{"string":2,"fret":1},{"string":1,"fret":0}]},
+      {"type":"chord","duration":1,"name":"C","notes":[{"string":5,"fret":3},{"string":4,"fret":2},{"string":3,"fret":0},{"string":2,"fret":1},{"string":1,"fret":0}]},
+      {"type":"chord","duration":0.5,"name":"C","notes":[{"string":5,"fret":3},{"string":4,"fret":2},{"string":3,"fret":0},{"string":2,"fret":1},{"string":1,"fret":0}]},
+      {"type":"chord","duration":0.5,"name":"C","notes":[{"string":5,"fret":3},{"string":4,"fret":2},{"string":3,"fret":0},{"string":2,"fret":1},{"string":1,"fret":0}]},
+      {"type":"chord","duration":0.5,"name":"C","notes":[{"string":5,"fret":3},{"string":4,"fret":2},{"string":3,"fret":0},{"string":2,"fret":1},{"string":1,"fret":0}]},
+  
+      {"type":"chord","duration":1,"name":"G","notes":[{"string":6,"fret":3},{"string":5,"fret":2},{"string":4,"fret":0},{"string":3,"fret":0},{"string":2,"fret":0},{"string":1,"fret":3}]},
+      {"type":"chord","duration":0.5,"name":"G","notes":[{"string":6,"fret":3},{"string":5,"fret":2},{"string":4,"fret":0},{"string":3,"fret":0},{"string":2,"fret":0},{"string":1,"fret":3}]},
+      {"type":"chord","duration":1,"name":"G","notes":[{"string":6,"fret":3},{"string":5,"fret":2},{"string":4,"fret":0},{"string":3,"fret":0},{"string":2,"fret":0},{"string":1,"fret":3}]},
+      {"type":"chord","duration":0.5,"name":"G","notes":[{"string":6,"fret":3},{"string":5,"fret":2},{"string":4,"fret":0},{"string":3,"fret":0},{"string":2,"fret":0},{"string":1,"fret":3}]},
+      {"type":"chord","duration":0.5,"name":"G","notes":[{"string":6,"fret":3},{"string":5,"fret":2},{"string":4,"fret":0},{"string":3,"fret":0},{"string":2,"fret":0},{"string":1,"fret":3}]},
+      {"type":"chord","duration":0.5,"name":"G","notes":[{"string":6,"fret":3},{"string":5,"fret":2},{"string":4,"fret":0},{"string":3,"fret":0},{"string":2,"fret":0},{"string":1,"fret":3}]},
+  
+      {"type":"chord","duration":1,"name":"Am","notes":[{"string":5,"fret":0},{"string":4,"fret":2},{"string":3,"fret":2},{"string":2,"fret":1},{"string":1,"fret":0}]},
+      {"type":"chord","duration":0.5,"name":"Am","notes":[{"string":5,"fret":0},{"string":4,"fret":2},{"string":3,"fret":2},{"string":2,"fret":1},{"string":1,"fret":0}]},
+      {"type":"chord","duration":1,"name":"Am","notes":[{"string":5,"fret":0},{"string":4,"fret":2},{"string":3,"fret":2},{"string":2,"fret":1},{"string":1,"fret":0}]},
+      {"type":"chord","duration":0.5,"name":"Am","notes":[{"string":5,"fret":0},{"string":4,"fret":2},{"string":3,"fret":2},{"string":2,"fret":1},{"string":1,"fret":0}]},
+      {"type":"chord","duration":0.5,"name":"Am","notes":[{"string":5,"fret":0},{"string":4,"fret":2},{"string":3,"fret":2},{"string":2,"fret":1},{"string":1,"fret":0}]},
+      {"type":"chord","duration":0.5,"name":"Am","notes":[{"string":5,"fret":0},{"string":4,"fret":2},{"string":3,"fret":2},{"string":2,"fret":1},{"string":1,"fret":0}]},
+  
+      {"type":"chord","duration":1,"name":"F","notes":[{"string":6,"fret":1},{"string":5,"fret":3},{"string":4,"fret":3},{"string":3,"fret":2},{"string":2,"fret":1},{"string":1,"fret":1}]},
+      {"type":"chord","duration":0.5,"name":"F","notes":[{"string":6,"fret":1},{"string":5,"fret":3},{"string":4,"fret":3},{"string":3,"fret":2},{"string":2,"fret":1},{"string":1,"fret":1}]},
+      {"type":"chord","duration":1,"name":"F","notes":[{"string":6,"fret":1},{"string":5,"fret":3},{"string":4,"fret":3},{"string":3,"fret":2},{"string":2,"fret":1},{"string":1,"fret":1}]},
+      {"type":"chord","duration":0.5,"name":"F","notes":[{"string":6,"fret":1},{"string":5,"fret":3},{"string":4,"fret":3},{"string":3,"fret":2},{"string":2,"fret":1},{"string":1,"fret":1}]},
+      {"type":"chord","duration":0.5,"name":"F","notes":[{"string":6,"fret":1},{"string":5,"fret":3},{"string":4,"fret":3},{"string":3,"fret":2},{"string":2,"fret":1},{"string":1,"fret":1}]},
+      {"type":"chord","duration":0.5,"name":"F","notes":[{"string":6,"fret":1},{"string":5,"fret":3},{"string":4,"fret":3},{"string":3,"fret":2},{"string":2,"fret":1},{"string":1,"fret":1}]}
+    ]
+  }
+  
