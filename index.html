@@ -965,17 +965,17 @@
     let currentLoopIndex = 0; // Indice del loop corrente
     let currentLoopIteration = 0; // Iterazione corrente del loop
 
-    const measuresCount = 24;
-    const beatPx = 50;
+    const measuresCount = 9;
+    let beatPx = 50; // Ora sarà dinamico
     const preRollBeats = 0;
-    const baseOffsetPx = 60 + preRollBeats * beatPx;
+    let baseOffsetPx = 60; // Anche questo diventerà dinamico
     const beatsPerMeasure = 4;
     const scheduleAheadTime = 0.06;
     const scheduleWindow = 0.18;
 
     const stringFrequencies = [329.63, 246.94, 196.00, 146.83, 110.00, 82.41];
 
-    const MEASURES_PER_ROW_DEFAULT = 5;
+    const MEASURES_PER_ROW_DEFAULT = 3; // Cambiato da 5 a 3
     const ROW_HEIGHT = 220;
 
     /* ---------- Helpers ---------- */
@@ -986,16 +986,44 @@
       const measuresPerRow = measuresPerRowOverride || MEASURES_PER_ROW_DEFAULT;
       const totalRows = Math.ceil(numMeasures / measuresPerRow);
 
-      const contentWidth = (measuresPerRow * beatsPerMeasure * beatPx) + 100;
-      const contentHeight = totalRows * ROW_HEIGHT;
+      const marginLeft = 60;
+      const marginRight = 40;
 
-      tablature.style.width = contentWidth + "px";
-      tablature.style.height = Math.max(contentHeight, stage.clientHeight) + "px";
-      stage.style.height = Math.max(totalRows * ROW_HEIGHT, 260) + "px";
+      // In modalità scroll: usa una larghezza fissa per i beat
+      // In modalità normale: calcola dinamicamente per riempire lo spazio
+      if (scrollMode) {
+        // Modalità scroll: larghezza fissa dei beat (più grande per leggibilità)
+        beatPx = 80; // Valore fisso confortevole
+        baseOffsetPx = marginLeft + preRollBeats * beatPx;
+
+        // La larghezza totale sarà molto più grande dello schermo
+        const contentWidth = marginLeft + (measuresPerRow * beatsPerMeasure * beatPx) + marginRight;
+        const contentHeight = totalRows * ROW_HEIGHT;
+
+        tablature.style.width = contentWidth + "px";
+        tablature.style.height = Math.max(contentHeight, stage.clientHeight) + "px";
+        stage.style.height = Math.max(totalRows * ROW_HEIGHT, 260) + "px";
+      } else {
+        // Modalità normale: calcola beatPx dinamicamente per riempire lo spazio
+        const availableWidth = stage.clientWidth || 1200;
+        const usableWidth = availableWidth - marginLeft - marginRight;
+
+        beatPx = usableWidth / (measuresPerRow * beatsPerMeasure);
+        baseOffsetPx = marginLeft + preRollBeats * beatPx;
+
+        const contentWidth = marginLeft + (measuresPerRow * beatsPerMeasure * beatPx) + marginRight;
+        const contentHeight = totalRows * ROW_HEIGHT;
+
+        tablature.style.width = contentWidth + "px";
+        tablature.style.height = Math.max(contentHeight, stage.clientHeight) + "px";
+        stage.style.height = Math.max(totalRows * ROW_HEIGHT, 260) + "px";
+      }
 
       // salva i valori nel DOM per usarli altrove (animateVisual)
       tablature.dataset.measuresPerRow = measuresPerRow;
       tablature.dataset.rowHeight = ROW_HEIGHT;
+      tablature.dataset.beatPx = beatPx;
+      tablature.dataset.baseOffsetPx = baseOffsetPx;
 
       // crea le battute e le measure-number (per riga, per col)
       for (let row = 0; row < totalRows; row++) {
@@ -1005,7 +1033,7 @@
         // misure normali
         for (let i = startMeasure; i < endMeasure; i++) {
           const col = i % measuresPerRow;
-          const x = col * beatPx * beatsPerMeasure + 60;
+          const x = marginLeft + col * beatPx * beatsPerMeasure;
           const y = row * ROW_HEIGHT;
 
           const line = document.createElement("div");
@@ -1024,7 +1052,7 @@
 
         // aggiungi linea extra alla fine della riga se non scrollMode
         if (!scrollMode) {
-          const extraX = measuresPerRow * beatsPerMeasure * beatPx + 60;
+          const extraX = marginLeft + measuresPerRow * beatsPerMeasure * beatPx;
           const extraY = row * ROW_HEIGHT;
           const extraLine = document.createElement("div");
           extraLine.className = "measure-line";
@@ -1032,12 +1060,11 @@
           extraLine.style.top = extraY + "px";
           tablature.appendChild(extraLine);
 
-          // opzionale: puoi aggiungere numero misura vuoto o indicante la misura successiva
           const extraNum = document.createElement("div");
           extraNum.className = "measure-number";
           extraNum.style.left = (extraX + 6) + "px";
           extraNum.style.top = (extraY + 10) + "px";
-          extraNum.textContent = ''; // lascia vuoto o metti startMeasure + measuresPerRow
+          extraNum.textContent = '';
           tablature.appendChild(extraNum);
         }
 
@@ -1046,6 +1073,8 @@
           const stringLine = document.createElement("div");
           stringLine.className = `string s${s + 1}`;
           stringLine.style.top = (row * ROW_HEIGHT + 40 + s * 30) + "px";
+          stringLine.style.left = marginLeft + "px";
+          stringLine.style.width = (measuresPerRow * beatsPerMeasure * beatPx) + "px";
           tablature.appendChild(stringLine);
         }
       }
@@ -1072,10 +1101,14 @@
       // Calcola i beat totali senza espandere i loop
       const totalBeats = calculateTotalBeats(exerciseData);
       const minMeasures = Math.max(measuresCount, Math.ceil(totalBeats / beatsPerMeasure) + 2);
+
+      // In modalità scroll: tutte le misure in una riga
+      // In modalità normale: 3 misure per riga
       const measuresPerRow = scrollMode ? minMeasures : MEASURES_PER_ROW_DEFAULT;
+
       drawMeasures(minMeasures, measuresPerRow);
 
-      const offsetX = 60 + preRollBeats * beatPx;
+      const offsetX = parseFloat(tablature.dataset.baseOffsetPx) || baseOffsetPx;
       let currentBeat = 0;
 
       exerciseData.forEach((ev, eventIndex) => {
@@ -1113,7 +1146,7 @@
 
       playhead.style.top = '0px';
       playhead.style.height = ROW_HEIGHT + 'px';
-      playhead.style.left = baseOffsetPx + 'px';
+      playhead.style.left = (scrollMode ? (stage.clientWidth / 2) : baseOffsetPx) + 'px';
     }
 
     // Calcola la durata totale senza espandere i loop
@@ -1136,10 +1169,13 @@
 
     // Processa un singolo evento (estratto dal codice originale)
     function processEvent(ev, currentBeat, measuresPerRow, offsetX) {
+      // Usa beatPx dinamico dal dataset se disponibile
+      const dynamicBeatPx = parseFloat(tablature.dataset.beatPx) || beatPx;
+
       const row = Math.floor(currentBeat / (beatsPerMeasure * measuresPerRow));
       const beatInRow = currentBeat % (beatsPerMeasure * measuresPerRow);
       const rowOffset = row * ROW_HEIGHT;
-      const leftPx = offsetX + beatInRow * beatPx;
+      const leftPx = offsetX + beatInRow * dynamicBeatPx;
 
       if (ev.type === "note") {
         const stringIndex = ev.string - 1;
@@ -1232,16 +1268,17 @@
 
     // Crea indicatori grafici per il loop
     function createLoopIndicator(startBeat, duration, count, measuresPerRow) {
-      const offsetX = 60 + preRollBeats * beatPx;
+      const dynamicBeatPx = parseFloat(tablature.dataset.beatPx) || beatPx;
+      const dynamicBaseOffset = parseFloat(tablature.dataset.baseOffsetPx) || baseOffsetPx;
+      const offsetX = dynamicBaseOffset;
       const margin = 10;
 
       const startRow = Math.floor(startBeat / (beatsPerMeasure * measuresPerRow));
       const startBeatInRow = startBeat % (beatsPerMeasure * measuresPerRow);
-      const startX = offsetX + startBeatInRow * beatPx;
+      const startX = offsetX + startBeatInRow * dynamicBeatPx;
 
       let endBeat = startBeat + duration;
 
-      // Trova il primo evento DOPO la fine del loop
       const nextEvent = events.find(ev => ev.beat > endBeat);
       if (nextEvent) {
         endBeat = nextEvent.beat;
@@ -1249,7 +1286,7 @@
 
       const endRow = Math.floor(endBeat / (beatsPerMeasure * measuresPerRow));
       const endBeatInRow = endBeat % (beatsPerMeasure * measuresPerRow);
-      const endX = offsetX + endBeatInRow * beatPx;
+      const endX = offsetX + endBeatInRow * dynamicBeatPx;
 
       const startLine = document.createElement("div");
       startLine.className = "loop-start";
