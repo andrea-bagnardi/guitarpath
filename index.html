@@ -961,6 +961,10 @@
     let countInBeats = 0;
     let countInStartTime = 0;
 
+    let currentLoops = []; // Array per memorizzare i loop attivi
+    let currentLoopIndex = 0; // Indice del loop corrente
+    let currentLoopIteration = 0; // Iterazione corrente del loop
+
     const measuresCount = 24;
     const beatPx = 50;
     const preRollBeats = 0;
@@ -1048,59 +1052,143 @@
     }
 
     function clearNotes() {
-      Array.from(tablature.querySelectorAll('.note, .rest')).forEach(n => n.remove());
-      events = [];
+      tablature.querySelectorAll('.note, .rest, .loop-start, .loop-end, .loop-label').forEach(el => el.remove());
+      events.length = 0;
+      currentLoops.length = 0;
+      noteIndex = 0;
       noteIdCounter = 0;
     }
 
     function createNotes(exKey) {
       clearNotes();
+      currentLoops = []; // Reset loop data
 
-      const sequence = exercises[exKey];
-      if (!sequence) {
+      const exerciseData = exercises[exKey];
+      if (!exerciseData) {
         console.warn(`Esercizio "${exKey}" non trovato.`);
         return;
       }
 
-      const totalBeats = sequence.reduce((acc, ev) => {
-        if (ev.type === "note" || ev.type === "chord" || ev.type === "rest") {
-          return acc + (ev.duration || 1);
-        }
-        return acc;
-      }, 0);
-
+      // Calcola i beat totali senza espandere i loop
+      const totalBeats = calculateTotalBeats(exerciseData);
       const minMeasures = Math.max(measuresCount, Math.ceil(totalBeats / beatsPerMeasure) + 2);
-
-      // se siamo in modalità scroll, metti tutte le misure in una riga
       const measuresPerRow = scrollMode ? minMeasures : MEASURES_PER_ROW_DEFAULT;
       drawMeasures(minMeasures, measuresPerRow);
 
-      // offset e contatori
       const offsetX = 60 + preRollBeats * beatPx;
       let currentBeat = 0;
 
-      sequence.forEach(ev => {
+      exerciseData.forEach((ev, eventIndex) => {
         const row = Math.floor(currentBeat / (beatsPerMeasure * measuresPerRow));
         const beatInRow = currentBeat % (beatsPerMeasure * measuresPerRow);
         const rowOffset = row * ROW_HEIGHT;
 
-        if (ev.type === "note") {
-          const stringIndex = ev.string - 1;
-          const y = 40 + stringIndex * 30 + rowOffset; // stringTop già include rowOffset quando trovato
-          const leftPx = offsetX + beatInRow * beatPx;
-          const freq = stringFrequencies[stringIndex] * Math.pow(2, ev.fret / 12);
+        if (ev.type === "loop") {
+          // Memorizza informazioni del loop
+          const loopStartBeat = currentBeat;
+          const loopDuration = calculateLoopDuration(ev.events);
+
+          currentLoops.push({
+            startBeat: loopStartBeat,
+            endBeat: loopStartBeat + loopDuration,
+            count: ev.count,
+            events: ev.events
+          });
+
+          // Crea indicatore grafico del loop
+          createLoopIndicator(loopStartBeat, loopDuration, ev.count, measuresPerRow);
+
+          // Processa gli eventi del loop UNA SOLA VOLTA per la visualizzazione
+          ev.events.forEach(loopEvent => {
+            processEvent(loopEvent, currentBeat, measuresPerRow, offsetX);
+            currentBeat += loopEvent.duration || 1;
+          });
+
+        } else {
+          // Processa evento normale
+          processEvent(ev, currentBeat, measuresPerRow, offsetX);
+          currentBeat += ev.duration || 1;
+        }
+      });
+
+      playhead.style.top = '0px';
+      playhead.style.height = ROW_HEIGHT + 'px';
+      playhead.style.left = baseOffsetPx + 'px';
+    }
+
+    // Calcola la durata totale senza espandere i loop
+    function calculateTotalBeats(sequence) {
+      return sequence.reduce((acc, ev) => {
+        if (ev.type === "loop") {
+          const loopDuration = ev.events.reduce((loopAcc, loopEv) => {
+            return loopAcc + (loopEv.duration || 1);
+          }, 0);
+          return acc + (loopDuration * ev.count);
+        }
+        return acc + (ev.duration || 1);
+      }, 0);
+    }
+
+    // Calcola la durata di un singolo ciclo del loop
+    function calculateLoopDuration(events) {
+      return events.reduce((acc, ev) => acc + (ev.duration || 1), 0);
+    }
+
+    // Processa un singolo evento (estratto dal codice originale)
+    function processEvent(ev, currentBeat, measuresPerRow, offsetX) {
+      const row = Math.floor(currentBeat / (beatsPerMeasure * measuresPerRow));
+      const beatInRow = currentBeat % (beatsPerMeasure * measuresPerRow);
+      const rowOffset = row * ROW_HEIGHT;
+      const leftPx = offsetX + beatInRow * beatPx;
+
+      if (ev.type === "note") {
+        const stringIndex = ev.string - 1;
+        const y = 40 + stringIndex * 30 + rowOffset;
+        const freq = stringFrequencies[stringIndex] * Math.pow(2, ev.fret / 12);
+
+        const n = document.createElement("div");
+        n.className = "note";
+        n.textContent = String(ev.fret);
+        n.style.left = leftPx + "px";
+        n.style.top = y + "px";
+        n.dataset.freq = freq;
+        n.dataset.string = "s" + ev.string;
+        n.dataset.beat = currentBeat;
+        n.dataset.duration = ev.duration || 1;
+        n.dataset.type = "note";
+        if (ev.techniques) n.dataset.techniques = ev.techniques.join(",");
+
+        n.id = `note-${noteIdCounter++}`;
+        tablature.appendChild(n);
+
+        events.push({
+          el: n,
+          beat: currentBeat,
+          duration: ev.duration || 1,
+          type: "note",
+          freq: freq,
+          string: ev.string,
+          fret: ev.fret,
+          scheduledAt: null
+        });
+      }
+
+      else if (ev.type === "chord") {
+        ev.notes.forEach(chNote => {
+          const stringIndex = chNote.string;
+          const y = 40 + (stringIndex - 1) * 30 + rowOffset;
+          const freq = stringFrequencies[stringIndex - 1] * Math.pow(2, chNote.fret / 12);
 
           const n = document.createElement("div");
-          n.className = "note";
-          n.textContent = String(ev.fret);
+          n.className = "note chord-note";
+          n.textContent = String(chNote.fret);
           n.style.left = leftPx + "px";
           n.style.top = y + "px";
           n.dataset.freq = freq;
-          n.dataset.string = "s" + ev.string;
+          n.dataset.string = "s" + stringIndex;
           n.dataset.beat = currentBeat;
           n.dataset.duration = ev.duration || 1;
-          n.dataset.type = "note";
-          if (ev.techniques) n.dataset.techniques = ev.techniques.join(",");
+          n.dataset.type = "chord";
 
           n.id = `note-${noteIdCounter++}`;
           tablature.appendChild(n);
@@ -1109,91 +1197,123 @@
             el: n,
             beat: currentBeat,
             duration: ev.duration || 1,
-            type: "note",
+            type: "chord",
             freq: freq,
-            string: ev.string,
-            fret: ev.fret,
+            string: stringIndex,
+            fret: chNote.fret,
             scheduledAt: null
           });
+        });
+      }
 
-          currentBeat += ev.duration || 1;
-        }
+      else if (ev.type === "rest") {
+        const r = document.createElement("div");
+        r.className = "rest";
+        r.style.left = leftPx + "px";
+        r.style.top = (40 + rowOffset) + "px";
+        r.dataset.beat = currentBeat;
+        r.dataset.duration = ev.duration || 1;
+        r.dataset.type = "rest";
+        r.id = `note-${noteIdCounter++}`;
+        tablature.appendChild(r);
 
-        else if (ev.type === "chord") {
-          const row = Math.floor(currentBeat / (beatsPerMeasure * measuresPerRow));
-          const beatInRow = currentBeat % (beatsPerMeasure * measuresPerRow);
-          const rowOffset = row * ROW_HEIGHT;
-          const leftPx = offsetX + beatInRow * beatPx;
+        events.push({
+          el: r,
+          beat: currentBeat,
+          duration: ev.duration || 1,
+          type: "rest",
+          freq: null,
+          string: null,
+          fret: null,
+          scheduledAt: null
+        });
+      }
+    }
 
-          ev.notes.forEach(chNote => {
-            const stringIndex = chNote.string;
-            const y = 40 + (stringIndex - 1) * 30 + rowOffset;
-            const freq = stringFrequencies[stringIndex - 1] * Math.pow(2, chNote.fret / 12);
+    // Crea indicatori grafici per il loop
+    function createLoopIndicator(startBeat, duration, count, measuresPerRow) {
+      const offsetX = 60 + preRollBeats * beatPx;
+      const margin = 10;
 
-            const n = document.createElement("div");
-            n.className = "note chord-note";
-            n.textContent = String(chNote.fret);
-            n.style.left = leftPx + "px";
-            n.style.top = y + "px";
-            n.dataset.freq = freq;
-            n.dataset.string = "s" + stringIndex;
-            n.dataset.beat = currentBeat;
-            n.dataset.duration = ev.duration || 1;
-            n.dataset.type = "chord";
+      const startRow = Math.floor(startBeat / (beatsPerMeasure * measuresPerRow));
+      const startBeatInRow = startBeat % (beatsPerMeasure * measuresPerRow);
+      const startX = offsetX + startBeatInRow * beatPx;
 
-            n.id = `note-${noteIdCounter++}`;
-            tablature.appendChild(n);
+      let endBeat = startBeat + duration;
 
-            events.push({
-              el: n,
-              beat: currentBeat,
-              duration: ev.duration || 1,
-              type: "chord",
-              freq: freq,
-              string: stringIndex,
-              fret: chNote.fret,
-              scheduledAt: null
-            });
-          });
+      // Trova il primo evento DOPO la fine del loop
+      const nextEvent = events.find(ev => ev.beat > endBeat);
+      if (nextEvent) {
+        endBeat = nextEvent.beat;
+      }
 
-          currentBeat += ev.duration || 1;
-        }
+      const endRow = Math.floor(endBeat / (beatsPerMeasure * measuresPerRow));
+      const endBeatInRow = endBeat % (beatsPerMeasure * measuresPerRow);
+      const endX = offsetX + endBeatInRow * beatPx;
 
-        else if (ev.type === "rest") {
-          const r = document.createElement("div");
-          r.className = "rest";
+      const startLine = document.createElement("div");
+      startLine.className = "loop-start";
+      startLine.style.cssText = `
+    position: absolute;
+    left: ${startX - margin - 2}px;
+    top: ${startRow * ROW_HEIGHT + 20}px;
+    width: 4px;
+    height: 200px;
+    background: linear-gradient(180deg, #4ec5ff, #00a8ff);
+    border-radius: 2px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    z-index: 10;
+  `;
+      tablature.appendChild(startLine);
 
-          const leftPx = offsetX + beatInRow * beatPx;
-          const topPx = 40 + rowOffset;
+      const endLine = document.createElement("div");
+      endLine.className = "loop-end";
+      endLine.style.cssText = `
+    position: absolute;
+    left: ${endX - margin - 2}px;
+    top: ${endRow * ROW_HEIGHT + 20}px;
+    width: 4px;
+    height: 200px;
+    background: linear-gradient(180deg, #4ec5ff, #00a8ff);
+    border-radius: 2px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    z-index: 10;
+  `;
+      tablature.appendChild(endLine);
 
-          r.style.left = leftPx + "px";
-          r.style.top = topPx + "px";
+      const label = document.createElement("div");
+      label.className = "loop-label";
+      label.textContent = `×${count}`;
+      label.style.cssText = `
+    position: absolute;
+    left: ${startX - margin + 8}px;
+    top: ${startRow * ROW_HEIGHT + 2}px;
+    background: linear-gradient(135deg, #4ec5ff, #00a8ff);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: bold;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    border: 1px solid rgba(255,255,255,0.2);
+    z-index: 15;
+  `;
+      tablature.appendChild(label);
 
-          r.dataset.beat = currentBeat;
-          r.dataset.duration = ev.duration || 1;
-          r.dataset.type = "rest";
-          r.id = `note-${noteIdCounter++}`;
-          tablature.appendChild(r);
-
-          events.push({
-            el: r,
-            beat: currentBeat,
-            duration: ev.duration || 1,
-            type: "rest",
-            freq: null,
-            string: null,
-            fret: null,
-            scheduledAt: null
-          });
-
-          currentBeat += ev.duration || 1;
-        }
-      });
-
-      // inizializza playhead sulla prima riga (utile dopo redraw)
-      playhead.style.top = '0px';
-      playhead.style.height = ROW_HEIGHT + 'px';
-      playhead.style.left = baseOffsetPx + 'px';
+      if (startRow === endRow) {
+        const connector = document.createElement("div");
+        connector.className = "loop-connector";
+        connector.style.cssText = `
+      position: absolute;
+      left: ${startX - margin}px;
+      top: ${startRow * ROW_HEIGHT + 18}px;
+      width: ${endX - startX}px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #4ec5ff, #4ec5ff, transparent);
+      z-index: 5;
+    `;
+        tablature.appendChild(connector);
+      }
     }
 
     /* ---------- Audio ---------- */
@@ -1217,18 +1337,29 @@
     function playNoteFreq(freq, when = null, durationBeats = 1) {
       if (!audioCtx || !noteSound) return;
       const t = (when === null) ? audioCtx.currentTime + scheduleAheadTime : when;
-      const o = audioCtx.createOscillator();
-      const g = audioCtx.createGain();
-      o.type = 'sine';
+
       const bpm = Math.max(30, Math.min(240, parseInt(bpmRange.value) || 80));
       const secPerBeat = 60 / bpm;
-      const durSec = Math.max(0.06, secPerBeat * (durationBeats || 1));
+      const durSec = Math.max(0.1, secPerBeat * (durationBeats || 1));
 
+      // Usa un'onda più morbida
+      const o = audioCtx.createOscillator();
+      const g = audioCtx.createGain();
+
+      o.type = 'triangle'; // Cambiato da 'sine' a 'triangle' per un suono più chitarristico
       o.frequency.setValueAtTime(freq, t);
-      g.gain.setValueAtTime(0.28, t);
-      g.gain.exponentialRampToValueAtTime(0.0001, t + durSec);
-      o.connect(g); g.connect(audioCtx.destination);
-      o.start(t); o.stop(t + durSec + 0.02);
+
+      // Envelope ADSR più naturale
+      g.gain.setValueAtTime(0, t);
+      g.gain.linearRampToValueAtTime(0.15, t + 0.01); // Attack rapido
+      g.gain.linearRampToValueAtTime(0.12, t + 0.05); // Decay
+      g.gain.setValueAtTime(0.12, t + durSec * 0.7); // Sustain
+      g.gain.exponentialRampToValueAtTime(0.001, t + durSec); // Release
+
+      o.connect(g);
+      g.connect(audioCtx.destination);
+      o.start(t);
+      o.stop(t + durSec + 0.01);
     }
 
     /* ---------- Scheduler ---------- */
@@ -1246,6 +1377,7 @@
         metroBeat = 0;
       }
 
+      // Metronomo
       while (metroNextTime <= scheduleUntil) {
         const isAccent = (metroBeat % beatsPerMeasure) === 0;
         if (clickSound) playClickSound(isAccent, metroNextTime);
@@ -1253,39 +1385,92 @@
         metroBeat++;
       }
 
-      for (; noteIndex < events.length; noteIndex++) {
-        const ev = events[noteIndex];
-        const when = startTime + (ev.beat * secondsPerBeat);
-        if (when > scheduleUntil) break;
+      // Schedula le note
+      for (let i = 0; i < events.length; i++) {
+        const ev = events[i];
 
-        if (ev.type !== "rest" && !isNaN(ev.freq) && noteSound) {
-          playNoteFreq(ev.freq, when, ev.duration);
+        // Verifica se la nota è in un loop
+        let inLoop = false;
+        let scheduleTimes = [];
+
+        for (const loop of currentLoops) {
+          if (ev.beat >= loop.startBeat && ev.beat < loop.endBeat) {
+            inLoop = true;
+            const loopLength = loop.endBeat - loop.startBeat;
+            const noteOffsetInLoop = ev.beat - loop.startBeat;
+
+            // Calcola tutti i tempi per questa nota in tutti i cicli del loop
+            for (let cycle = 0; cycle < loop.count; cycle++) {
+              const cycleStartBeat = loop.startBeat + (cycle * loopLength);
+              const noteBeat = cycleStartBeat + noteOffsetInLoop;
+              const noteTime = startTime + (noteBeat * secondsPerBeat);
+              scheduleTimes.push(noteTime);
+            }
+            break;
+          }
         }
 
-        ev.scheduledAt = when;
+        if (!inLoop) {
+          // Nota fuori dai loop
+          let timeOffset = 0;
+
+          // Per ogni loop che precede questa nota, aggiungi il tempo dei cicli extra
+          for (const loop of currentLoops) {
+            const loopLength = loop.endBeat - loop.startBeat;
+            const loopTotalDuration = loopLength * loop.count;
+
+            if (ev.beat >= loop.endBeat) {
+              // La nota è dopo questo loop
+              // Aggiungi il tempo totale del loop meno la sua durata base
+              timeOffset += loopLength * (loop.count - 1);
+            }
+          }
+
+          const adjustedBeat = ev.beat + timeOffset;
+          const noteTime = startTime + (adjustedBeat * secondsPerBeat);
+          scheduleTimes.push(noteTime);
+        }
+
+        // Schedula tutti i tempi per questa nota
+        for (const noteTime of scheduleTimes) {
+          if (noteTime > now && noteTime <= scheduleUntil) {
+            if (!ev.scheduledTimes) ev.scheduledTimes = new Set();
+
+            const timeKey = noteTime.toFixed(3);
+            if (!ev.scheduledTimes.has(timeKey)) {
+              ev.scheduledTimes.add(timeKey);
+
+              if (ev.type !== "rest" && !isNaN(ev.freq) && noteSound) {
+                playNoteFreq(ev.freq, noteTime, ev.duration);
+              }
+
+              const delay = (noteTime - now) * 1000;
+              if (delay > 0) {
+                setTimeout(() => {
+                  const el = ev.el;
+                  if (el && isPlaying) {
+                    el.classList.add('active');
+                    setTimeout(() => el.classList.remove('active'), 220);
+                  }
+                }, delay);
+              }
+            }
+          }
+        }
       }
 
       setTimeout(scheduleAhead, 25);
     }
 
     /* ---------- Visual Animation ---------- */
+    // Variabili globali - SEMPLIFICATE
+    let loopVisualEnds = {}; // Memorizza dove finisce visivamente ogni loop
+
     function animateVisual() {
       if (!isPlaying) return;
       if (!audioCtx) { rafId = requestAnimationFrame(animateVisual); return; }
 
       const now = audioCtx.currentTime;
-
-      for (let i = 0; i < events.length; i++) {
-        const ev = events[i];
-        if (ev.scheduledAt && now >= ev.scheduledAt) {
-          const el = ev.el;
-          if (el) {
-            el.classList.add('active');
-            setTimeout(() => el.classList.remove('active'), 220);
-          }
-          ev.scheduledAt = null;
-        }
-      }
 
       if (countInStartTime && now < startTime) {
         const remainingBeats = Math.ceil((startTime - now) / secondsPerBeat);
@@ -1295,9 +1480,28 @@
       }
 
       const elapsed = Math.max(0, now - startTime);
-      const totalBeatsPassed = elapsed / secondsPerBeat;
-      const totalBeats = events.length > 0 ? events[events.length - 1].beat + events[events.length - 1].duration : 0;
+      let totalBeatsPassed = elapsed / secondsPerBeat;
 
+      let visualBeat = totalBeatsPassed;
+
+      // Gestione loop per il playhead
+      for (const loop of currentLoops) {
+        const loopLength = loop.endBeat - loop.startBeat;
+        const loopTotalLength = loopLength * loop.count;
+
+        if (totalBeatsPassed >= loop.startBeat && totalBeatsPassed < loop.startBeat + loopTotalLength) {
+          const beatsSinceLoopStart = totalBeatsPassed - loop.startBeat;
+          const beatInCurrentCycle = beatsSinceLoopStart % loopLength;
+          visualBeat = loop.startBeat + beatInCurrentCycle;
+          break;
+        } else if (totalBeatsPassed >= loop.startBeat + loopTotalLength) {
+          const extraBeats = loopLength * (loop.count - 1);
+          visualBeat = totalBeatsPassed - extraBeats;
+        }
+      }
+
+      // Stop condition
+      let totalBeats = calculateTotalBeats(exercises[exerciseSelect.value] || []);
       if (elapsed >= totalBeats * secondsPerBeat) {
         stopPlayback();
         return;
@@ -1307,20 +1511,18 @@
       const rowHeightUsed = parseInt(tablature.dataset.rowHeight, 10) || ROW_HEIGHT;
       const beatsPerRow = beatsPerMeasure * measuresPerRowUsed;
 
-      const currentRow = Math.floor(totalBeatsPassed / beatsPerRow);
-      const beatInRow = totalBeatsPassed % beatsPerRow;
+      const currentRow = Math.floor(visualBeat / beatsPerRow);
+      const beatInRow = visualBeat % beatsPerRow;
       const xBeat = baseOffsetPx + beatInRow * beatPx;
       const rowTop = currentRow * rowHeightUsed;
 
       if (scrollMode) {
-        // playhead fisso al centro; tablatura scorre
         playhead.style.top = '0px';
         playhead.style.height = rowHeightUsed + 'px';
         playhead.style.left = (stage.clientWidth / 2) + 'px';
         const translateX = (stage.clientWidth / 2) - xBeat;
         tablature.style.transform = `translateX(${translateX}px)`;
       } else {
-        // playhead si muove sulla riga (resettando all'inizio di ogni riga)
         tablature.style.transform = 'translateX(0px)';
         const clampedLeft = Math.max(0, Math.min(stage.clientWidth, xBeat));
         playhead.style.left = clampedLeft + 'px';
@@ -1328,7 +1530,6 @@
         playhead.style.height = rowHeightUsed + 'px';
       }
 
-      // Mantieni il playhead visibile durante la riproduzione
       if (!scrollMode) keepPlayheadVisible();
 
       const currentBpm = Math.max(30, Math.min(240, parseInt(bpmRange.value) || 80));
@@ -1450,7 +1651,15 @@
       tablature.style.transform = 'translateX(0px)';
       playhead.style.top = '0px';
       playhead.style.left = baseOffsetPx + 'px';
-      events.forEach(e => { try { e.el.classList.remove('active'); } catch { }; e.scheduledAt = null; });
+
+      events.forEach(e => {
+        try { e.el.classList.remove('active'); } catch { }
+        e.scheduledAt = null;
+        e.scheduledTimes = null; // Reset scheduling data
+        e.lastCycleScheduled = null;
+        e.scheduledOutsideLoop = null;
+      });
+
       tablature.querySelectorAll('.string').forEach(s => s.classList.remove('active'));
 
       statusEl.textContent = 'Fermo';
