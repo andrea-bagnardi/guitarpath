@@ -1491,8 +1491,27 @@
 
         if (totalBeatsPassed >= loop.startBeat && totalBeatsPassed < loop.startBeat + loopTotalLength) {
           const beatsSinceLoopStart = totalBeatsPassed - loop.startBeat;
+          const currentCycle = Math.floor(beatsSinceLoopStart / loopLength);
           const beatInCurrentCycle = beatsSinceLoopStart % loopLength;
-          visualBeat = loop.startBeat + beatInCurrentCycle;
+
+          // Trova la posizione visuale della barra finale (prima nota dopo il loop)
+          let loopVisualEnd = loop.endBeat;
+          const nextEventAfterLoop = events.find(ev => ev.beat >= loop.endBeat);
+          if (nextEventAfterLoop) {
+            loopVisualEnd = nextEventAfterLoop.beat;
+          }
+
+          const maxBeatInCycle = loopVisualEnd - loop.startBeat;
+
+          // Se NON siamo nell'ultimo ciclo, clampa alla barra finale
+          if (currentCycle < loop.count - 1) {
+            const clampedBeat = Math.min(beatInCurrentCycle, maxBeatInCycle);
+            visualBeat = loop.startBeat + clampedBeat;
+          } else {
+            // Ultimo ciclo: lascia scorrere normalmente
+            visualBeat = loop.startBeat + beatInCurrentCycle;
+          }
+
           break;
         } else if (totalBeatsPassed >= loop.startBeat + loopTotalLength) {
           const extraBeats = loopLength * (loop.count - 1);
