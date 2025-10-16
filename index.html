@@ -758,6 +758,185 @@
       box-shadow: none !important;
       padding: 0 !important;
     }
+
+    .exercise-panel {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 520px;
+      /* Aumentato da 420px */
+      height: 100vh;
+      background: var(--panel);
+      /* Usa lo stesso sfondo della UI */
+      border-left: 1px solid var(--panel-border);
+      box-shadow: -6px 0 30px rgba(0, 0, 0, 0.4);
+      transform: translateX(100%);
+      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 2000;
+      overflow: hidden;
+      backdrop-filter: blur(12px);
+    }
+
+    .exercise-panel.open {
+      transform: translateX(0);
+    }
+
+    .panel-content {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .panel-header {
+      padding: 24px;
+      background: rgba(0, 0, 0, 0.15);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .panel-header h2 {
+      margin: 0;
+      font-size: 19px;
+      color: var(--text);
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    .close-panel {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 20px;
+      cursor: pointer;
+      padding: 0;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      transition: all 0.2s;
+    }
+
+    .close-panel:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .panel-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 28px;
+    }
+
+    .video-wrapper {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      margin-bottom: 28px;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .description-section,
+    .details-section {
+      margin-bottom: 28px;
+    }
+
+    .description-section h3,
+    .details-section h3 {
+      color: var(--accent-2);
+      font-size: 15px;
+      margin: 0 0 14px 0;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .description-section p,
+    #exerciseDetails {
+      color: rgba(255, 255, 255, 0.85);
+      line-height: 1.75;
+      font-size: 14px;
+      margin: 0;
+      white-space: pre-wrap;
+    }
+
+    .panel-body::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .panel-body::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .panel-body::-webkit-scrollbar-thumb {
+      background: rgba(78, 197, 255, 0.25);
+      border-radius: 3px;
+    }
+
+    .panel-body::-webkit-scrollbar-thumb:hover {
+      background: rgba(78, 197, 255, 0.4);
+    }
+
+    /* Light Theme */
+    body.light .exercise-panel {
+      background: var(--panel);
+      border-left-color: var(--panel-border);
+      box-shadow: -6px 0 30px rgba(0, 0, 0, 0.12);
+    }
+
+    body.light .panel-header {
+      background: rgba(0, 0, 0, 0.03);
+      border-bottom-color: rgba(0, 0, 0, 0.08);
+    }
+
+    body.light .panel-header h2 {
+      color: var(--text);
+    }
+
+    body.light .close-panel {
+      color: rgba(0, 0, 0, 0.6);
+      border-color: rgba(0, 0, 0, 0.1);
+    }
+
+    body.light .close-panel:hover {
+      background: rgba(0, 0, 0, 0.05);
+      color: #000;
+      border-color: rgba(0, 0, 0, 0.15);
+    }
+
+    body.light .description-section p,
+    body.light #exerciseDetails {
+      color: rgba(0, 0, 0, 0.8);
+    }
+
+    body.light .video-wrapper {
+      border-color: rgba(0, 0, 0, 0.1);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .exercise-panel {
+        width: 100%;
+        max-width: 520px;
+      }
+    }
   </style>
 </head>
 
@@ -799,7 +978,38 @@
         </label>
       </div>
       <div style="display:flex;align-items:center;gap:12px">
-        <div class="chip" id="playerInfo">Pronto</div>
+        <button id="exerciseInfoBtn" class="icon-toggle" title="Info Esercizio">
+          <svg viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5" />
+            <path d="M12 16v-4M12 8h.01" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+          </svg>
+          <span>Info</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Exercise Info Panel -->
+    <div class="exercise-panel" id="exercisePanel">
+      <div class="panel-content">
+        <div class="panel-header">
+          <h2 id="exerciseName">Esercizio</h2>
+          <button class="close-panel" id="closePanel">×</button>
+        </div>
+        <div class="panel-body">
+          <div class="video-section" id="videoSection" style="display:none;">
+            <div class="video-wrapper">
+              <iframe id="exerciseVideo" src="" frameborder="0" allowfullscreen></iframe>
+            </div>
+          </div>
+          <div class="description-section">
+            <h3>📝 Descrizione</h3>
+            <p id="exerciseDescription">Seleziona un esercizio.</p>
+          </div>
+          <div class="details-section" id="detailsSection" style="display:none;">
+            <h3>📖 Dettagli</h3>
+            <div id="exerciseDetails"></div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -886,6 +1096,7 @@
   <script>
     /* === Dynamic Exercise Loader === */
     const exercises = {};
+    const fullExercises = {};
     const exerciseDir = "./exercises";
 
     async function loadExercises() {
@@ -899,7 +1110,8 @@
           const res = await fetch(`${exerciseDir}/${file}`);
           const data = await res.json();
 
-          exercises[data.id] = data.events;
+          exercises[data.id] = data.events; // Mantieni il vecchio formato per compatibilità
+          fullExercises[data.id] = data; // Salva l'oggetto completo
 
           const opt = document.createElement("option");
           opt.value = data.id;
@@ -1747,7 +1959,6 @@
     exerciseSelect.addEventListener("change", () => {
       const exKey = exerciseSelect.value;
 
-      // Pulisci tablatura
       const tablature = document.getElementById("tablature");
       tablature.innerHTML = `
     <div class="string s1"></div>
@@ -1759,15 +1970,15 @@
   `;
 
       if (exKey) {
-        // Fade-out del messaggio
         message.classList.add("hidden");
-
-        // Dopo il fade, eventualmente nascondi display (opzionale)
-        setTimeout(() => {
-          message.style.display = "none";
-        }, 500);
+        setTimeout(() => { message.style.display = "none"; }, 500);
 
         createNotes(exKey);
+
+        // Aggiorna panel (se la funzione esiste)
+        if (typeof updateExercisePanel === 'function') {
+          updateExercisePanel(exKey);
+        }
       }
     });
 
@@ -1800,10 +2011,61 @@
     toggleButtonVisual(countinToggle, enableCountIn);
     toggleButtonVisual(themeToggleBtn, isLightTheme);
 
-    document.getElementById('openLibraryBtn').addEventListener('click', () => console.log("Apri libreria (placeholder)"));
-    document.getElementById('profileBtn').addEventListener('click', () => console.log("Apri profilo (placeholder)"));
-
     console.log("Inizializzazione completa (scheduler riscritto)");
+
+    /* ========== EXERCISE PANEL (ALLA FINE) ========== */
+    console.log('🔵 Inizializzo panel...');
+
+    const panelBtn = document.getElementById('exerciseInfoBtn');
+    const panelEl = document.getElementById('exercisePanel');
+    const panelClose = document.getElementById('closePanel');
+
+    if (panelBtn && panelEl) {
+      panelBtn.onclick = function (e) {
+        e.preventDefault();
+        panelEl.classList.toggle('open');
+        console.log('Panel toggled:', panelEl.classList.contains('open'));
+      };
+      console.log('✅ Panel button funzionante!');
+    } else {
+      console.error('❌ Panel elements missing:', { panelBtn, panelEl });
+    }
+
+    if (panelClose && panelEl) {
+      panelClose.onclick = function () {
+        panelEl.classList.remove('open');
+      };
+    }
+
+    // Funzione per aggiornare il panel
+    window.updateExercisePanel = function (exKey) {
+      const ex = fullExercises[exKey];
+      if (!ex) return;
+
+      document.getElementById('exerciseName').textContent = ex.name || exKey;
+      document.getElementById('exerciseDescription').textContent = ex.description || 'Nessuna descrizione.';
+
+      if (ex.details) {
+        document.getElementById('exerciseDetails').textContent = ex.details;
+        document.getElementById('detailsSection').style.display = 'block';
+      } else {
+        document.getElementById('detailsSection').style.display = 'none';
+      }
+
+      if (ex.video) {
+        const ytMatch = ex.video.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&\s]+)/);
+        const embedUrl = ytMatch ? `https://www.youtube.com/embed/${ytMatch[1]}` : ex.video;
+        document.getElementById('exerciseVideo').src = embedUrl;
+        document.getElementById('videoSection').style.display = 'block';
+      } else {
+        document.getElementById('videoSection').style.display = 'none';
+      }
+
+      console.log('✅ Panel aggiornato:', ex.name);
+    };
+
+    console.log('✅ Panel completamente inizializzato!');
+
   </script>
 
   <script src="https://cdn.tailwindcss.com"></script>
